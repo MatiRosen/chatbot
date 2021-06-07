@@ -19,28 +19,30 @@ public class MessageManager {
     private JavaPlugin plugin;
 
     public void sendMessageAsync(String message, Player player){
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            FileConfiguration messagesFile = fileManager.get("messages");
-            String key = getMatchedKey(messagesFile, message);
-            if (key == null) return;
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> sendMessage(message, player));
+    }
 
-            String permission = messagesFile.getString(key + ".permission");
-            List<String> answers = getResponsesFromKey(messagesFile, key, permission == null || player.hasPermission(permission));
+    private void sendMessage(String message, Player player){
+        FileConfiguration messagesFile = fileManager.get("messages");
+        String key = getMatchedKey(messagesFile, message);
+        if (key == null) return;
 
-            if (answers.isEmpty()) return;
-            FileConfiguration config = plugin.getConfig();
-            Random random = new Random();
-            String randomResponse = answers.get(random.nextInt(answers.size()));
+        String permission = messagesFile.getString(key + ".permission");
+        List<String> answers = getResponsesFromKey(messagesFile, key, permission == null || player.hasPermission(permission));
 
-            new BukkitRunnable(){
-                @Override
-                public void run(){
-                    for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
-                        onlinePlayer.sendMessage(Utils.format(randomResponse.replace("%prefix%", config.getString("prefix"))));
-                    }
+        if (answers.isEmpty()) return;
+        FileConfiguration config = plugin.getConfig();
+        Random random = new Random();
+        String randomResponse = answers.get(random.nextInt(answers.size()));
+
+        new BukkitRunnable(){
+            @Override
+            public void run(){
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
+                    onlinePlayer.sendMessage(Utils.format(randomResponse.replace("%prefix%", config.getString("prefix"))));
                 }
-            }.runTaskLater(plugin, config.getInt("delay"));
-        });
+            }
+        }.runTaskLater(plugin, config.getInt("delay"));
     }
 
     private String getMatchedKey(FileConfiguration messagesFile, String message) {
