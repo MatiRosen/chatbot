@@ -15,24 +15,25 @@ import javax.inject.Inject;
 public class BotPlugin extends JavaPlugin {
 
     @Inject
-    private ChatListener chatListener;
-    @Inject
     private FileManager fileManager;
     @Inject
     private MainCommand mainCommand;
+    @Inject
+    private ChatListener chatListener;
 
     private static MessageHandler messageHandler;
 
-    public void onload(){
+    public void onLoad(){
+
+    }
+
+    public void onEnable(){
         try {
             Injector injector = Injector.create(new CoreModule(this));
             injector.injectMembers(this);
         } catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public void onEnable(){
         fileManager.loadAllFileConfigurations();
         mainCommand.start();
 

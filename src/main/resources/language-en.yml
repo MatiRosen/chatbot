@@ -1,0 +1,8 @@
+##########GENERAL##########
+help-command:
+  - '&bUse &d/chatbot menu &bto open configuration menu. &4(Needs permission!)'
+  - '&bUse &d/chatbot help &bto show this.'
+  - '&bUse &d/chatbot reload to reload the plugin. &4(Needs permission!)'
+use-help: '&bUse &d/chatbot help &bto show all commands'
+no-permission: '%prefix% &cYou do not have permission to do that!'
+plugin-reloaded: '%prefix% &aPlugin reloaded.'

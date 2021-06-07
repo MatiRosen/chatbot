@@ -1,0 +1,10 @@
+author:
+  messages:
+    - 'Who created the chatbot plugin'
+    - 'Who is the creator of the chatbot plugin'
+  permission: 'chatbot.author'
+  no-permission-responses:
+    - '%prefix% &cYou don''t have permissions to ask that.'
+    - '%prefix% &cI won''t tell you'
+  permission-responses:
+    - '%prefix% &aThe author is @MatiRosen'
