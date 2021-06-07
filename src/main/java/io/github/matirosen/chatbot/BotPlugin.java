@@ -38,7 +38,6 @@ public class BotPlugin extends JavaPlugin {
         mainCommand.start();
 
         messageHandler = new MessageHandler(fileManager);
-
         Bukkit.getPluginManager().registerEvents(new GUIListeners(), this);
     }
 

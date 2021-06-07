@@ -6,6 +6,9 @@ language: en
 # Time (inactive seconds) to wait before abandoning the configuration conversation.
 time-out: 360
 
+# Time (in milliseconds) before the bot responses.
+delay: 20
+
 # Word to cancel the configuration.
 cancel-word: "cancel"
 
