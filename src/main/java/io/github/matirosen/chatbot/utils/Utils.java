@@ -1,4 +1,4 @@
-package io.github.matirosen.chatbot;
+package io.github.matirosen.chatbot.utils;
 
 import org.bukkit.ChatColor;
 

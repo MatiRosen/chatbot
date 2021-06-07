@@ -7,4 +7,4 @@ prefix: ChatBot
 
 commands:
   chatbot:
-    description: Main plugin for ChatBot
+    description: Main command for ChatBot

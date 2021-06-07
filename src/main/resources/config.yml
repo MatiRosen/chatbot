@@ -1,0 +1,15 @@
+# Set language of plugin. If you create a new YML, it should be called "language-(your language).yml". For example, "language-ru.yml". Then write "ru" here.
+language: en
+
+# Time (inactive seconds) to wait before abandoning the configuration conversation.
+time-out: 360
+
+# Word to cancel the configuration.
+cancel-word: "cancel"
+
+# Word to finish the configuration.
+done-word: "done"
+
+# Words to confirm the configuration.
+yes-word: "yes"
+no-word: "no"
