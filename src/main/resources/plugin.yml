@@ -1,6 +1,10 @@
 name: chatbot
-version: 0.0.1
+version: 1.0
 main: io.github.matirosen.chatbot.BotPlugin
 author: MatiRosen
 website: https://github.com/MatiRosen/chatbot
 prefix: ChatBot
+
+commands:
+  chatbot:
+    description: Main plugin for ChatBot
