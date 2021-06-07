@@ -21,7 +21,7 @@ public class MessageHandler {
         String message = messageSection.getString(id);
         if (message == null || message.isEmpty()) return;
 
-        player.sendMessage(format(message.replace("%prefix%", messageSection.getString("prefix"))
+        player.sendMessage(format(message.replace("%prefix%", fileManager.get("config").getString("prefix"))
                 .replace("%player_name%", player.getName())));
     }
 
@@ -33,7 +33,7 @@ public class MessageHandler {
         if (messageList == null || messageList.isEmpty()) return;
 
         for (String message : messageList){
-            player.sendMessage(format(message.replace("%prefix%", messageSection.getString("prefix"))
+            player.sendMessage(format(message.replace("%prefix%", fileManager.get("config").getString("prefix"))
                     .replace("%player_name%", player.getName())));
         }
     }
