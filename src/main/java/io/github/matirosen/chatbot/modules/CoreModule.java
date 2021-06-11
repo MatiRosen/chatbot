@@ -1,6 +1,10 @@
 package io.github.matirosen.chatbot.modules;
 
 import io.github.matirosen.chatbot.BotPlugin;
+import io.github.matirosen.chatbot.guis.ConfirmRemoveMenu;
+import io.github.matirosen.chatbot.guis.KeyMenu;
+import io.github.matirosen.chatbot.guis.MainMenu;
+import io.github.matirosen.chatbot.guis.key.MessagesMenu;
 import io.github.matirosen.chatbot.listeners.ChatListener;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.managers.MessageManager;
@@ -24,5 +28,10 @@ public class CoreModule implements Module {
         binder.bind(FileManager.class).singleton();
         binder.bind(MessageManager.class).singleton();
         binder.bind(ChatListener.class).singleton();
+
+        binder.bind(MainMenu.class).singleton();
+        binder.bind(KeyMenu.class).singleton();
+        binder.bind(ConfirmRemoveMenu.class).singleton();
+        binder.bind(MessagesMenu.class).singleton();
     }
 }

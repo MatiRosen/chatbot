@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class FileManager {
@@ -26,11 +27,10 @@ public class FileManager {
         loadFileConfiguration("language-en.yml");
         loadFileConfiguration("language-es.yml");
 
-        FileConfiguration config = plugin.getConfig();
         configurationMap.put("config", loadFileConfiguration("config.yml"));
         configurationMap.put("messages", loadFileConfiguration("messages.yml"));
 
-        String lang = String.format(LANG_FORMAT, config.getString("language"));
+        String lang = String.format(LANG_FORMAT, get("config").getString("language"));
         FileConfiguration langFileConfiguration = loadFileConfiguration(lang);
 
         if (langFileConfiguration == null) {
@@ -46,14 +46,27 @@ public class FileManager {
         configurationMap.put("language", langFileConfiguration);
     }
 
+    public void saveFile(FileConfiguration fileConfiguration, String path){
+        File file = new File(plugin.getDataFolder(), path);
+        try {
+            fileConfiguration.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public FileConfiguration get(String name){
         return configurationMap.get(name);
     }
 
     public FileConfiguration loadFileConfiguration(String name){
         File file = new File(plugin.getDataFolder(), name);
-        if (!file.exists()) {
-            plugin.saveResource(name, true);
+        if (!file.exists()){
+            try{
+                plugin.saveResource(name, true);
+            } catch (IllegalArgumentException e){
+                return null;
+            }
         }
         return YamlConfiguration.loadConfiguration(file);
     }

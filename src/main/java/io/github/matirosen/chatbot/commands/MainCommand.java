@@ -1,6 +1,7 @@
 package io.github.matirosen.chatbot.commands;
 
 import io.github.matirosen.chatbot.BotPlugin;
+import io.github.matirosen.chatbot.guis.MainMenu;
 import io.github.matirosen.chatbot.utils.Utils;
 import io.github.matirosen.chatbot.managers.FileManager;
 import org.bukkit.Bukkit;
@@ -22,6 +23,8 @@ public class MainCommand implements TabExecutor {
     private BotPlugin plugin;
     @Inject
     private FileManager fileManager;
+    @Inject
+    private MainMenu mainMenu;
 
     public void start(){
         Objects.requireNonNull(plugin.getCommand("chatbot")).setExecutor(this);
@@ -43,13 +46,16 @@ public class MainCommand implements TabExecutor {
         Player player = (Player) sender;
 
         if (player.isConversing()){
-            BotPlugin.getMessageHandler().send(player, "already-configuring");
+            player.sendMessage(Utils.format(BotPlugin.getMessageHandler().getMessage("already-configuring")));
             return false;
         }
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("menu")){
-            // Open Menu
-
+            if (!player.hasPermission("chatbot.menu")){
+                BotPlugin.getMessageHandler().send(player, "no-permission");
+                return false;
+            }
+            player.openInventory(mainMenu.build());
             return true;
         }
 

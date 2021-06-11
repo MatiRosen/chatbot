@@ -1,10 +1,14 @@
 author:
+  # All the messages for the key 'author'
   messages:
     - 'Who created the chatbot plugin'
     - 'Who is the creator of the chatbot plugin'
+  # Permission to use "permission-responses" or "no-permission-responses". You can leave it as '' for no permission.
   permission: 'chatbot.author'
+  # List of responses that the bot will answer if player doesn't have the permission.
   no-permission-responses:
     - '%prefix% &cYou don''t have permissions to ask that.'
     - '%prefix% &cI won''t tell you'
+  # List of responses that the bot will answer if player has the permission.
   permission-responses:
     - '%prefix% &aThe author is @MatiRosen'

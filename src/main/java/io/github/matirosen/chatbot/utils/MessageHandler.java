@@ -44,7 +44,7 @@ public class MessageHandler {
         String message = messageSection.getString(id);
         if (message == null || message.isEmpty()) return "";
 
-        return format(message.replace("%prefix%", messageSection.getString("prefix")));
+        return format(message.replace("%prefix%", fileManager.get("config").getString("prefix")));
     }
 
     private String format(String s){

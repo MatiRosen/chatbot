@@ -1,5 +1,6 @@
 package io.github.matirosen.chatbot.managers;
 
+import io.github.matirosen.chatbot.BotMessage;
 import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -8,8 +9,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.inject.Inject;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class MessageManager {
 
@@ -18,8 +21,38 @@ public class MessageManager {
     @Inject
     private JavaPlugin plugin;
 
+    public Set<String> getKeys(){
+        return fileManager.get("messages").getKeys(false);
+    }
+
+    public void saveMessage(BotMessage botMessage){
+        FileConfiguration messages = fileManager.get("messages");
+        String key = botMessage.getKey();
+        createSections(messages, key);
+        messages.set(key + ".messages", botMessage.getMessages());
+        messages.set(key + ".permission-responses", botMessage.getPermissionResponses());
+        messages.set(key + ".no-permission-responses", botMessage.getNoPermissionResponses());
+        messages.set(key + ".permission", botMessage.getPermission());
+
+        fileManager.saveFile(messages, "messages.yml");
+    }
+
+    public void removeKey(String key){
+        FileConfiguration messages = fileManager.get("messages");
+        messages.set(key, null);
+        fileManager.saveFile(messages, "messages.yml");
+    }
+
     public void sendMessageAsync(String message, Player player){
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> sendMessage(message, player));
+    }
+
+    private void createSections(FileConfiguration fileConfiguration, String key){
+        fileConfiguration.createSection(key);
+        fileConfiguration.createSection(key + ".messages");
+        fileConfiguration.createSection(key + ".permission");
+        fileConfiguration.createSection(key + ".permission-responses");
+        fileConfiguration.createSection(key + ".no-permission-responses");
     }
 
     private void sendMessage(String message, Player player){
@@ -46,9 +79,9 @@ public class MessageManager {
     }
 
     private String getMatchedKey(FileConfiguration messagesFile, String message) {
-        for (String key : messagesFile.getKeys(false)){
+        for (String key : getKeys()){
             for (String s : messagesFile.getStringList(key + ".messages")){
-                if (message.contains(s.toLowerCase())) return key;
+                if (message.contains(Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}", ""))) return key;
             }
         }
         return null;

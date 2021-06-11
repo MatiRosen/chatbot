@@ -18,3 +18,84 @@ done-word: "done"
 # Words to confirm the configuration.
 yes-word: "yes"
 no-word: "no"
+
+
+main-menu:
+  title: '&8ChatBot menu'
+  items:
+    keys:
+      material: PAPER
+      name: '&bOpen %key%'
+      lore:
+        - '&7Right click to open key menu'
+    create:
+      material: EMERALD_BLOCK
+      name: '&bAdd a new key'
+      lore:
+        - '&7Right click to add a new key'
+    next-page:
+      material: ARROW
+      name: '&bGo to page %next_page%'
+      lore:
+        - '&bClick here to go to next page'
+    previous-page:
+      material: ARROW
+      name: '&bGo to page %previous_page%'
+      lore:
+        - '&bClick here to go to previous page'
+key-menu:
+  title: '&8Seeing %key%'
+  items:
+    messages:
+      material: WRITTEN_BOOK
+      name: '&bSee or edit messages'
+      lore:
+        - '&7Click here to go to menu'
+    permission-responses:
+      material: EMERALD_BLOCK
+      name: '&bSee or edit permission responses'
+      lore:
+        - '&7Click here to go to menu'
+    no-permission-responses:
+      material: REDSTONE_BLOCK
+      name: '&bSee or edit no-permission responses'
+      lore:
+        - '&7Click here to go to menu'
+    add-message:
+      material: EMERALD_BLOCK
+      name: '&bAdd message'
+      lore:
+        - '&7Click here to add a message'
+    permission:
+      material: PAPER
+      name: '&b%permission%'
+      lore:
+        - '&7Click here to edit permission'
+    remove-key:
+      material: BARRIER
+      name: '&bRemove key'
+      lore:
+        - '&7Click here to remove key'
+messages-menu:
+  title: '&8Messages from key %key%'
+  items:
+    messages:
+      material: PAPER
+      name: '%message%'
+      lore:
+        - ''
+        - '&7Click for more information'
+
+remove-menu:
+  title: '&8Remove %key%'
+  items:
+    confirm:
+      material: EMERALD_BLOCK
+      name: '&bConfirm remove of %key%'
+      lore:
+        - '&7Click here to confirm remove'
+    cancel:
+      material: REDSTONE_BLOCK
+      name: '&bCancel remove of %key%'
+      lore:
+        - '&7Click here to cancel remove'
