@@ -1,5 +1,6 @@
 package io.github.matirosen.chatbot.chatComponents;
 
+import com.google.common.base.Strings;
 import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.utils.MessageHandler;
@@ -70,11 +71,12 @@ public class ComponentRenderer {
         String arrow = messageHandler.getMessage(next + "-arrow");
         String hover = messageHandler.getMessage("hover-" + next + "-arrow");
         int actualPage = next.equalsIgnoreCase("next") ? page + 1 : page - 1;
-        String spaces = hasPrevious ?  next.equalsIgnoreCase("next") ? "                  " : "              "
-                : next.equalsIgnoreCase("next") ? "                                   " : "              ";
+
+        String leftArrowSpace = Strings.repeat(" ", 14);
+        String rightArrowSpace = hasPrevious ? Strings.repeat(" ", 18) : Strings.repeat(" ", 35);
 
 
-        componentBuilder.append(spaces).reset()
+        componentBuilder.append(next.equalsIgnoreCase("next") ? rightArrowSpace : leftArrowSpace).reset()
                 .append(arrow)
                 .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hover).create()))
                 .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatbot see " + key + " " + s + " " + actualPage));
