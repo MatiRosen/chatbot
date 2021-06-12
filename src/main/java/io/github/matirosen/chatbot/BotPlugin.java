@@ -2,6 +2,7 @@ package io.github.matirosen.chatbot;
 
 import io.github.matirosen.chatbot.commands.MainCommand;
 import io.github.matirosen.chatbot.listeners.ChatListener;
+import io.github.matirosen.chatbot.listeners.CommandListener;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.modules.CoreModule;
 import io.github.matirosen.chatbot.utils.MessageHandler;
@@ -22,6 +23,8 @@ public class BotPlugin extends JavaPlugin {
     private MainCommand mainCommand;
     @Inject
     private ChatListener chatListener;
+    @Inject
+    private CommandListener commandListener;
 
     private static MessageHandler messageHandler;
 

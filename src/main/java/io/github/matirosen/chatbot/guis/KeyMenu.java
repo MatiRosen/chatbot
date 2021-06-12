@@ -1,10 +1,16 @@
 package io.github.matirosen.chatbot.guis;
 
+import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
 import io.github.matirosen.chatbot.guis.key.MessagesMenu;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.utils.Utils;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 import team.unnamed.gui.abstraction.item.ItemClickable;
@@ -22,7 +28,7 @@ public class KeyMenu {
     @Inject
     private ConfirmRemoveMenu confirmRemoveMenu;
     @Inject
-    private MessagesMenu messagesMenu;
+    private ComponentRenderer componentRenderer;
     @Inject
     private FileManager fileManager;
 
@@ -58,11 +64,17 @@ public class KeyMenu {
                         .build())
                 .setAction(event -> {
                     if (s.equalsIgnoreCase("messages")){
-                        event.getWhoClicked().openInventory(messagesMenu.build(key));
+                        Player player = (Player) event.getWhoClicked();
+                        componentRenderer.sendComponents(player, key, "messages", 1);
+                        player.closeInventory();
                     } else if (s.equalsIgnoreCase("permission-responses")){
-                        //open permission responses menu
+                        Player player = (Player) event.getWhoClicked();
+                        componentRenderer.sendComponents(player, key, "permission-responses", 1);
+                        player.closeInventory();
                     }else if (s.equalsIgnoreCase("no-permission-responses")){
-                        //open no permission responses menu
+                        Player player = (Player) event.getWhoClicked();
+                        componentRenderer.sendComponents(player, key, "no-permission-responses", 1);
+                        player.closeInventory();
                     }else if (s.equalsIgnoreCase("permission")){
                         event.getWhoClicked().closeInventory();
                         //conversations

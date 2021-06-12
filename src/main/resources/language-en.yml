@@ -15,3 +15,18 @@ only-one-word: '&cYou should use only one word for the key. Write it back.'
 finish-writing-key: '&7You used &d%key% &7as key. Do you confirm? &b(%yes%/%no%)'
 key-created: '&aYou created the key &d%key%'
 write-y-n: '&7You should write "%yes%" or "%no%"'
+
+
+##########CONVERSATIONS##########
+
+
+##########SEE CONTENTS##########
+see-separator: '&d-------------%prefix%&d----------------'
+next-arrow: '&6->'
+hover-next-arrow: '&bClick here to see more'
+previous-arrow: '&6<-'
+hover-previous-arrow: '&bClick here to go back'
+
+see-messages-title: '       &bMessages from key &d%key% &bpage %page%'
+see-permission-response-title: '    &bPermission responses from key &d%key%'
+see-no-permission-response-title: '  &bNo permission responses from key &d%key%'

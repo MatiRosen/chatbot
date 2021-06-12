@@ -1,5 +1,11 @@
 package io.github.matirosen.chatbot.utils;
 
+import io.github.matirosen.chatbot.BotPlugin;
+import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
