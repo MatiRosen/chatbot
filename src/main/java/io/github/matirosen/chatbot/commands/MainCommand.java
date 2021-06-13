@@ -1,6 +1,7 @@
 package io.github.matirosen.chatbot.commands;
 
 import io.github.matirosen.chatbot.BotPlugin;
+import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
 import io.github.matirosen.chatbot.guis.MainMenu;
 import io.github.matirosen.chatbot.utils.Utils;
 import io.github.matirosen.chatbot.managers.FileManager;
@@ -9,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
@@ -25,6 +27,8 @@ public class MainCommand implements TabExecutor {
     private FileManager fileManager;
     @Inject
     private MainMenu mainMenu;
+    @Inject
+    private ComponentRenderer componentRenderer;
 
     public void start(){
         Objects.requireNonNull(plugin.getCommand("chatbot")).setExecutor(this);
@@ -79,22 +83,6 @@ public class MainCommand implements TabExecutor {
             return true;
         }
 
-        if (args.length >= 1 && args[0].equalsIgnoreCase("add")) {
-            if (!player.hasPermission("chatbot.add")){
-                BotPlugin.getMessageHandler().send(player, "no-permission");
-                return false;
-            }
-            //conversations
-            /*ConversationFactory cf = new ConversationFactory(plugin);
-            Conversation conversation = cf
-                    .withFirstPrompt(new NamePrompt())
-                    .withLocalEcho(false)
-                    .withTimeout(plugin.getConfig().getInt("time-out"))
-                    .buildConversation(player);
-            conversation.begin();*/
-            return true;
-        }
-
         player.sendMessage(Utils.format("&d------ &a&l[&6&lBotChat&a&l] &d------\n\n"
                 + "&9Author: &eMatiRosen\n"
                 + "&3Version: &e" + plugin.getDescription().getVersion())
@@ -112,12 +100,25 @@ public class MainCommand implements TabExecutor {
         List<String> tab = new ArrayList<>();
         if (!(sender instanceof Player)) return tab;
 
-        if (args.length >= 2) return tab;
 
-        if (sender.hasPermission("chatbot.add")) tab.add("add");
+        if (sender.hasPermission("chatbot.remove")) tab.add("remove");
         if (sender.hasPermission("chatbot.menu")) tab.add("menu");
         if (sender.hasPermission("chatbot.help")) tab.add("help");
         if (sender.hasPermission("chatbot.reload")) tab.add("reload");
+
+        if (sender.hasPermission("chatbot.remove")){
+            tab.add("remove");
+            if (args[0].equalsIgnoreCase("remove") && args.length == 2 && args[1].isEmpty()){
+                tab.addAll(fileManager.get("messages").getKeys(false));
+                tab.add("messages");
+                tab.add("permission-responses");
+                tab.add("no-permission-responses");
+            } else if (args.length == 3){
+                tab.add("messages");
+                tab.add("permission-responses");
+                tab.add("no-permission-responses");
+            }
+        }
 
         return tab;
     }

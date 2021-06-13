@@ -1,5 +1,6 @@
 package io.github.matirosen.chatbot.guis;
 
+import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.conversations.CreateKeyPrompt;
 import io.github.matirosen.chatbot.managers.MessageManager;
 import io.github.matirosen.chatbot.utils.Utils;
@@ -65,6 +66,11 @@ public class MainMenu {
                         .setAction(event -> {
                             Player player = (Player) event.getWhoClicked();
                             player.closeInventory();
+                            event.setCancelled(true);
+                            if (!player.hasPermission("chatbot.add")){
+                                BotPlugin.getMessageHandler().send(player, "no-permission");
+                                return false;
+                            }
                             ConversationFactory cf = new ConversationFactory(plugin);
                             Conversation conversation = cf
                                     .withFirstPrompt(new CreateKeyPrompt(plugin, messageManager, this, keyMenu))
@@ -72,7 +78,6 @@ public class MainMenu {
                                     .withTimeout(plugin.getConfig().getInt("time-out"))
                                     .buildConversation(player);
                             conversation.begin();
-                            event.setCancelled(true);
                             return true;
                         })
                         .build())

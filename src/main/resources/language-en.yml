@@ -7,18 +7,35 @@ use-help: '&bUse &d/chatbot help &bto show all commands'
 no-permission: '%prefix% &cYou do not have permission to do that!'
 plugin-reloaded: '%prefix% &aPlugin reloaded.'
 
+
+##########CONVERSATIONS##########
 already-configuring: '%prefix% &cYou should end your actual conversation before doing another command!'
 cancel-any-time: '%prefix% &7You can cancel any time by writing "&c%cancel%&7"'
+write-y-n: '&7You should write "%yes%" or "%no%"'
+
+######KEY######
 write-key: '&aWrite the key name:'
-creation-cancelled: '%prefix% &cKey creation canceled'
+key-creation-cancelled: '%prefix% &cKey creation canceled'
 only-one-word: '&cYou should use only one word for the key. Write it back.'
 finish-writing-key: '&7You used &d%key% &7as key. Do you confirm? &b(%yes%/%no%)'
 key-created: '&aYou created the key &d%key%'
-write-y-n: '&7You should write "%yes%" or "%no%"'
 
+######MESSAGES######
+write-messages: '&aWrite the message:'
+messages-cancelled: '%prefix% &cMessage creation canceled'
+finish-writing-messages: 'Do you confirm your message? &b(%yes%/%no%)'
+messages-created: '&aMessage has been created.'
 
-##########CONVERSATIONS##########
+######RESPONSES######
+write-permission-responses: '&aWrite the permission response:'
+permission-responses-cancelled: '%prefix% &cPermission response creation canceled'
+finish-writing-permission-responses: 'Do you confirm your permission response? &b(%yes%/%no%)'
+permission-responses-created: '&aPermission response has been created.'
 
+write-no-permission-responses: '&aWrite the no permission response:'
+no-permission-responses-cancelled: '%prefix% &cNo permission response creation canceled'
+finish-writing-no-permission-responses: 'Do you confirm your no permission response? &b(%yes%/%no%)'
+no-permission-responses-created: '&aNo permission response has been created.'
 
 ##########SEE CONTENTS##########
 see-separator: '&d-------------%prefix%&d----------------'
@@ -28,5 +45,5 @@ previous-arrow: '&6<-'
 hover-previous-arrow: '&bClick here to go back'
 
 see-messages-title: '       &bMessages from key &d%key% &bpage %page%'
-see-permission-response-title: '    &bPermission responses from key &d%key%'
-see-no-permission-response-title: '  &bNo permission responses from key &d%key%'
+see-permission-responses-title: '    &bPermission responses from key &d%key%'
+see-no-permission-responses-title: '  &bNo permission responses from key &d%key%'

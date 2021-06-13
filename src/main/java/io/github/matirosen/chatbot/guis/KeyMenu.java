@@ -1,13 +1,8 @@
 package io.github.matirosen.chatbot.guis;
 
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
-import io.github.matirosen.chatbot.guis.key.MessagesMenu;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.utils.Utils;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -28,19 +23,22 @@ public class KeyMenu {
     @Inject
     private ConfirmRemoveMenu confirmRemoveMenu;
     @Inject
-    private ComponentRenderer componentRenderer;
+    private SeeMessageMenu seeMessageMenu;
     @Inject
     private FileManager fileManager;
+    @Inject
+    private MainMenu mainMenu;
 
     public Inventory build(String key){
         FileConfiguration config = plugin.getConfig();
 
-        return GUIBuilder.builder(Utils.format(config.getString("key-menu.title").replace("%key%", key)))
+        return GUIBuilder.builder(Utils.format(config.getString("key-menu.title").replace("%key%", key)), 1)
                 .addItem(getItemClickable(0, "messages", key))
                 .addItem(getItemClickable(1, "permission-responses", key))
                 .addItem(getItemClickable(2, "no-permission-responses", key))
                 .addItem(getItemClickable(3, "permission", key))
                 .addItem(getItemClickable(4, "remove-key", key))
+                .addItem(getItemClickable(8, "back", key))
                 .build();
     }
 
@@ -64,22 +62,18 @@ public class KeyMenu {
                         .build())
                 .setAction(event -> {
                     if (s.equalsIgnoreCase("messages")){
-                        Player player = (Player) event.getWhoClicked();
-                        componentRenderer.sendComponents(player, key, "messages", 1);
-                        player.closeInventory();
-                    } else if (s.equalsIgnoreCase("permission-responses")){
-                        Player player = (Player) event.getWhoClicked();
-                        componentRenderer.sendComponents(player, key, "permission-responses", 1);
-                        player.closeInventory();
+                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "messages"));
+                    }else if (s.equalsIgnoreCase("permission-responses")){
+                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "permission-responses"));
                     }else if (s.equalsIgnoreCase("no-permission-responses")){
-                        Player player = (Player) event.getWhoClicked();
-                        componentRenderer.sendComponents(player, key, "no-permission-responses", 1);
-                        player.closeInventory();
+                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "no-permission-responses"));
                     }else if (s.equalsIgnoreCase("permission")){
                         event.getWhoClicked().closeInventory();
                         //conversations
                     } else if (s.equalsIgnoreCase("remove-key")){
                         event.getWhoClicked().openInventory(confirmRemoveMenu.build(key));
+                    } else if (s.equalsIgnoreCase("back")){
+                        event.getWhoClicked().openInventory(mainMenu.build());
                     }
 
                     event.setCancelled(true);

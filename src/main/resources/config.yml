@@ -76,16 +76,11 @@ key-menu:
       name: '&bRemove key'
       lore:
         - '&7Click here to remove key'
-messages-menu:
-  title: '&8Messages from key %key%'
-  items:
-    messages:
-      material: PAPER
-      name: '%message%'
+    back:
+      material: ARROW
+      name: '&bBack to Main Menu'
       lore:
-        - ''
-        - '&7Click for more information'
-
+        - '&7Click here to go back'
 remove-menu:
   title: '&8Remove %key%'
   items:
@@ -99,3 +94,57 @@ remove-menu:
       name: '&bCancel remove of %key%'
       lore:
         - '&7Click here to cancel remove'
+messages-menu:
+  title: '&8Messages options for key &d%key%'
+  items:
+    create:
+      material: EMERALD_BLOCK
+      name: '&bAdd a new message'
+      lore:
+        - '&7Click here to start'
+    see:
+      material: REDSTONE_BLOCK
+      name: '&bSee all messages'
+      lore:
+        - '&7Click here to see'
+    back:
+      material: ARROW
+      name: '&bBack to Main Menu'
+      lore:
+        - '&7Click here to go back'
+permission-responses-menu:
+  title: '&8Permission responses options for key &d%key%'
+  items:
+    create:
+      material: EMERALD_BLOCK
+      name: '&bAdd a new permission response'
+      lore:
+        - '&7Click here to start'
+    see:
+      material: REDSTONE_BLOCK
+      name: '&bSee all permission responses'
+      lore:
+        - '&7Click here to see'
+    back:
+      material: ARROW
+      name: '&bBack to Main Menu'
+      lore:
+        - '&7Click here to go back'
+no-permission-responses-menu:
+  title: '&8No permission responses options for key &d%key%'
+  items:
+    create:
+      material: EMERALD_BLOCK
+      name: '&bAdd a new no permission response'
+      lore:
+        - '&7Click here to start'
+    see:
+      material: REDSTONE_BLOCK
+      name: '&bSee all no permission responses'
+      lore:
+        - '&7Click here to see'
+    back:
+      material: ARROW
+      name: '&bBack to Main Menu'
+      lore:
+        - '&7Click here to go back'

@@ -26,15 +26,23 @@ public class MessageManager {
     }
 
     public void saveMessage(BotMessage botMessage){
-        FileConfiguration messages = fileManager.get("messages");
+        FileConfiguration messagesFile = fileManager.get("messages");
         String key = botMessage.getKey();
-        createSections(messages, key);
-        messages.set(key + ".messages", botMessage.getMessages());
-        messages.set(key + ".permission-responses", botMessage.getPermissionResponses());
-        messages.set(key + ".no-permission-responses", botMessage.getNoPermissionResponses());
-        messages.set(key + ".permission", botMessage.getPermission());
+        if (!messagesFile.getKeys(false).contains(key)) createSections(messagesFile, key);
 
-        fileManager.saveFile(messages, "messages.yml");
+        List<String> messages = messagesFile.getStringList(key +".messages");
+        messages.addAll(botMessage.getMessages());
+        List<String> permResponses = messagesFile.getStringList(key +".permission-responses");
+        permResponses.addAll(botMessage.getPermissionResponses());
+        List<String> noPermResponses = messagesFile.getStringList(key +".no-permission-responses");
+        noPermResponses.addAll(botMessage.getNoPermissionResponses());
+
+        messagesFile.set(key + ".messages", messages);
+        messagesFile.set(key + ".permission-responses", permResponses);
+        messagesFile.set(key + ".no-permission-responses", noPermResponses);
+        messagesFile.set(key + ".permission", botMessage.getPermission());
+
+        fileManager.saveFile(messagesFile, "messages.yml");
     }
 
     public void removeKey(String key){

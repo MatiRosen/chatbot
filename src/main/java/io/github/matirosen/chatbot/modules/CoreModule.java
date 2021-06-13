@@ -5,7 +5,7 @@ import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
 import io.github.matirosen.chatbot.guis.ConfirmRemoveMenu;
 import io.github.matirosen.chatbot.guis.KeyMenu;
 import io.github.matirosen.chatbot.guis.MainMenu;
-import io.github.matirosen.chatbot.guis.key.MessagesMenu;
+import io.github.matirosen.chatbot.guis.SeeMessageMenu;
 import io.github.matirosen.chatbot.listeners.ChatListener;
 import io.github.matirosen.chatbot.listeners.CommandListener;
 import io.github.matirosen.chatbot.managers.FileManager;
@@ -35,7 +35,8 @@ public class CoreModule implements Module {
         binder.bind(MainMenu.class).singleton();
         binder.bind(KeyMenu.class).singleton();
         binder.bind(ConfirmRemoveMenu.class).singleton();
-        binder.bind(MessagesMenu.class).singleton();
+        binder.bind(SeeMessageMenu.class).singleton();
+
         binder.bind(ComponentRenderer.class).singleton();
     }
 }
