@@ -2,9 +2,13 @@ package io.github.matirosen.chatbot.listeners;
 
 import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
+import io.github.matirosen.chatbot.conversations.MessagePrompt;
+import io.github.matirosen.chatbot.conversations.RemovePrompt;
 import io.github.matirosen.chatbot.managers.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.conversations.Conversation;
+import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +16,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.inject.Inject;
-import java.util.List;
 
 public class CommandListener implements Listener {
 
@@ -20,6 +23,8 @@ public class CommandListener implements Listener {
     private ComponentRenderer componentRenderer;
     @Inject
     private FileManager fileManager;
+    @Inject
+    private JavaPlugin plugin;
 
     @Inject
     public CommandListener(JavaPlugin plugin){
@@ -37,22 +42,22 @@ public class CommandListener implements Listener {
 
         String key = args[2];
         String s = args[3];
-        int page = Integer.parseInt(args[4]);
+        int i = Integer.parseInt(args[4]);
 
         if (args[1].equalsIgnoreCase("see")){
-            componentRenderer.sendComponents(player, key, s, page);
+            componentRenderer.sendComponents(player, key, s, i);
         } else if (args[1].equalsIgnoreCase("remove")){
             if (!player.hasPermission("chatbot.remove")){
                 BotPlugin.getMessageHandler().send(player, "no-permission");
                 return;
             }
-            FileConfiguration messagesFile = fileManager.get("messages");
-            List<String> messages = messagesFile.getStringList(key + "."+ s);
-            messages.remove(page-1);
-            messagesFile.set(key + "."+ s, messages);
-
-            fileManager.saveFile(messagesFile, "messages.yml");
-            componentRenderer.sendComponents(player, key, s, 1);
+            ConversationFactory cf = new ConversationFactory(plugin);
+            Conversation conversation = cf
+                    .withFirstPrompt(new RemovePrompt(plugin, fileManager, componentRenderer, key, s, i))
+                    .withLocalEcho(false)
+                    .withTimeout(plugin.getConfig().getInt("time-out"))
+                    .buildConversation(player);
+            conversation.begin();
         }
 
         event.setCancelled(true);

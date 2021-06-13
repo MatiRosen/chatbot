@@ -42,7 +42,7 @@ public class ComponentRenderer {
 
         for (int i = 1; i < (list.size() + 1); i++){
             componentBuilder.append(list.get(i - 1) + "\n\n")
-                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.format("&cClick to remove")).create()))
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.format(messageHandler.getMessage("remove-hover"))).create()))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatbot remove " + key + " " + s + " " + i));
 
             if (i % 5 == 0 && i != list.size()){
