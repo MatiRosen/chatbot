@@ -44,7 +44,7 @@ public class CreateKeyPrompt extends StringPrompt {
 
         if (s.equalsIgnoreCase(config.getString("cancel-word"))){
             Player player = (Player) context.getForWhom();
-            player.sendRawMessage(BotPlugin.getMessageHandler().getMessage("creation-cancelled"));
+            player.sendRawMessage(BotPlugin.getMessageHandler().getMessage("key-creation-cancelled"));
             player.openInventory(mainMenu.build());
             return Prompt.END_OF_CONVERSATION;
         }
