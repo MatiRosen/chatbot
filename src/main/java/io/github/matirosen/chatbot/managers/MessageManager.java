@@ -81,7 +81,7 @@ public class MessageManager {
         if (key == null) return;
 
         String permission = messagesFile.getString(key + ".permission");
-        List<String> answers = getResponsesFromKey(messagesFile, key, permission == null || player.hasPermission(permission));
+        List<String> answers = getResponsesFromKey(messagesFile, key, permission == null || player.hasPermission(permission) || permission.isEmpty());
 
         if (answers.isEmpty()) return;
         FileConfiguration config = plugin.getConfig();
