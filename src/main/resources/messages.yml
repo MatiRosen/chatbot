@@ -31,3 +31,32 @@ joke:
   permission-responses:
     - '%prefix% &aHear about the new restaurant called Karma? &bThere’s no menu: You get what you deserve.'
     - '%prefix% &aDid you hear about the claustrophobic astronaut? &bHe just needed a little space.'
+discord:
+  messages:
+    - 'what is the discord'
+    - 'how do i get help'
+  permission: ''
+  permission-responses:
+    - '%prefix% &e@%player_name%&b, https://discord.gg/cvagVTztZZ'
+dice:
+  messages:
+    - 'throw the dice'
+  permission: 'chatbot.dice'
+  permission-responses:
+    - '%prefix% &e@%player_name%&b, 1'
+    - '%prefix% &e@%player_name%&b, 2'
+    - '%prefix% &e@%player_name%&b, 3'
+    - '%prefix% &e@%player_name%&b, 4'
+    - '%prefix% &e@%player_name%&b, 5'
+    - '%prefix% &e@%player_name%&b, 6'
+  no-permission-responses:
+    - '&bI''m tired. Do it yourself.'
+    - '&bNow now.'
+wiki:
+  messages:
+    - 'chatbot wiki'
+    - 'chatbot help'
+  permission: ''
+  permission-responses:
+    - '%prefix% https://github.com/MatiRosen/chatbot/wiki'
+  no-permission-responses: []
