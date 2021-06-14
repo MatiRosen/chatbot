@@ -1,6 +1,7 @@
 package io.github.matirosen.chatbot.managers;
 
 import io.github.matirosen.chatbot.BotMessage;
+import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,9 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.inject.Inject;
 import java.text.Normalizer;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class MessageManager {
 
@@ -20,6 +19,7 @@ public class MessageManager {
     private FileManager fileManager;
     @Inject
     private JavaPlugin plugin;
+    private final Map<Player, Long> coolDownMap = new HashMap<>();
 
     public Set<String> getKeys(){
         return fileManager.get("messages").getKeys(false);
@@ -52,6 +52,17 @@ public class MessageManager {
     }
 
     public void sendMessageAsync(String message, Player player){
+        if (coolDownMap.containsKey(player)){
+            int secondsPassed = (int) (System.currentTimeMillis()/1000 - coolDownMap.get(player)/1000);
+            int coolDown = plugin.getConfig().getInt("player-cooldown");
+
+            if (secondsPassed < coolDown){
+                player.sendMessage(BotPlugin.getMessageHandler().getMessage("player-in-cooldown")
+                        .replace("%time%", String.valueOf(coolDown - secondsPassed)));
+                return;
+            }
+            coolDownMap.remove(player);
+        }
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> sendMessage(message, player));
     }
 
@@ -81,6 +92,9 @@ public class MessageManager {
             public void run(){
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
                     onlinePlayer.sendMessage(Utils.format(randomResponse.replace("%prefix%", config.getString("prefix"))));
+                }
+                if (!player.hasPermission("chatbot.bypass.cooldown")){
+                    coolDownMap.put(player, System.currentTimeMillis());
                 }
             }
         }.runTaskLater(plugin, config.getInt("delay"));

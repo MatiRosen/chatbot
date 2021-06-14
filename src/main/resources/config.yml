@@ -9,6 +9,11 @@ time-out: 360
 # Time (in milliseconds) before the bot responses.
 delay: 20
 
+# Time (in seconds) before the bot responses to the same player.
+player-cooldown: 5
+
+
+
 # Word to cancel the configuration.
 cancel-word: "cancel"
 
@@ -94,6 +99,24 @@ remove-menu:
       name: '&bCancel remove of %key%'
       lore:
         - '&7Click here to cancel remove'
+permission-menu:
+  title: '&8Permission options for key &d%key%'
+  items:
+    create:
+      material: EMERALD_BLOCK
+      name: '&bEdit permission %permission%'
+      lore:
+        - '&7Click here to start'
+    see:
+      material: REDSTONE_BLOCK
+      name: '&bSee or remove permission'
+      lore:
+        - '&7Click here to see'
+    back:
+      material: ARROW
+      name: '&bBack to Main Menu'
+      lore:
+        - '&7Click here to go back'
 messages-menu:
   title: '&8Messages options for key &d%key%'
   items:

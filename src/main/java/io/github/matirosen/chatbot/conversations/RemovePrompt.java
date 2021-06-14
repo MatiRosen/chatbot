@@ -38,7 +38,11 @@ public class RemovePrompt extends StringPrompt {
         FileConfiguration config = plugin.getConfig();
         String message = messageHandler.getMessage("remove-" + s);
 
-        message = message + Utils.format("\n&b"+ fileManager.get("messages").getStringList(key + "."+ s).get(i-1));
+        if (s.equalsIgnoreCase("permission")){
+            message = message + Utils.format("\n&b"+ fileManager.get("messages").getString(key + ".permission"));
+        } else{
+            message = message + Utils.format("\n&b"+ fileManager.get("messages").getStringList(key + "."+ s).get(i-1));
+        }
 
         return message.replace("%yes%", config.getString("yes-word")).replace("%no%", config.getString("no-word"));
     }
@@ -51,9 +55,13 @@ public class RemovePrompt extends StringPrompt {
 
         if (t.equalsIgnoreCase("y") || t.equalsIgnoreCase(config.getString("yes-word"))){
             FileConfiguration messagesFile = fileManager.get("messages");
-            List<String> messages = messagesFile.getStringList(key + "."+ s);
-            messages.remove(i-1);
-            messagesFile.set(key + "."+ s, messages);
+            if (s.equalsIgnoreCase("permission")){
+                messagesFile.set(key + ".permission", "");
+            } else{
+                List<String> messages = messagesFile.getStringList(key + "."+ s);
+                messages.remove(i-1);
+                messagesFile.set(key + "."+ s, messages);
+            }
 
             fileManager.saveFile(messagesFile, "messages.yml");
             componentRenderer.sendComponents(player, key, s, 1);

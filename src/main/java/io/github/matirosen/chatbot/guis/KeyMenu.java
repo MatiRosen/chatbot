@@ -1,10 +1,13 @@
 package io.github.matirosen.chatbot.guis;
 
-import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
+import io.github.matirosen.chatbot.conversations.MessagePrompt;
 import io.github.matirosen.chatbot.managers.FileManager;
+import io.github.matirosen.chatbot.managers.MessageManager;
 import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.conversations.Conversation;
+import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +25,8 @@ public class KeyMenu {
     private JavaPlugin plugin;
     @Inject
     private ConfirmRemoveMenu confirmRemoveMenu;
+    @Inject
+    private MessageManager messageManager;
     @Inject
     private SeeMessageMenu seeMessageMenu;
     @Inject
@@ -68,8 +73,7 @@ public class KeyMenu {
                     }else if (s.equalsIgnoreCase("no-permission-responses")){
                         event.getWhoClicked().openInventory(seeMessageMenu.build(key, "no-permission-responses"));
                     }else if (s.equalsIgnoreCase("permission")){
-                        event.getWhoClicked().closeInventory();
-                        //conversations
+                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "permission"));
                     } else if (s.equalsIgnoreCase("remove-key")){
                         event.getWhoClicked().openInventory(confirmRemoveMenu.build(key));
                     } else if (s.equalsIgnoreCase("back")){

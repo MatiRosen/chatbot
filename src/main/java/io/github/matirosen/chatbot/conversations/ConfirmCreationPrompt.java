@@ -5,6 +5,7 @@ import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.guis.KeyMenu;
 import io.github.matirosen.chatbot.guis.MainMenu;
 import io.github.matirosen.chatbot.guis.SeeMessageMenu;
+import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.managers.MessageManager;
 import io.github.matirosen.chatbot.utils.MessageHandler;
 import io.github.matirosen.chatbot.utils.Utils;
@@ -21,6 +22,7 @@ public class ConfirmCreationPrompt extends StringPrompt {
 
     private final JavaPlugin plugin;
     private final MessageManager messageManager;
+    private FileManager fileManager;
     private MainMenu mainMenu;
     private KeyMenu keyMenu;
     private final String key, creation;
@@ -37,8 +39,9 @@ public class ConfirmCreationPrompt extends StringPrompt {
         this.creation = creation;
     }
 
-    public ConfirmCreationPrompt(JavaPlugin plugin, SeeMessageMenu seeMessageMenu, MessageManager messageManager, String key, String msg, String creation){
+    public ConfirmCreationPrompt(JavaPlugin plugin, FileManager fileManager, SeeMessageMenu seeMessageMenu, MessageManager messageManager, String key, String msg, String creation){
         this.plugin = plugin;
+        this.fileManager = fileManager;
         this.messageManager = messageManager;
         this.creation = creation;
         this.msg = msg;
@@ -74,6 +77,8 @@ public class ConfirmCreationPrompt extends StringPrompt {
                 botMessage.addPermissionResponse(msg);
             } else if (creation.equalsIgnoreCase("no-permission-responses")){
                 botMessage.addNoPermissionResponse(msg);
+            } else if (creation.equalsIgnoreCase("permission")){
+                botMessage.addPermission(msg);
             }
 
             messageManager.saveMessage(botMessage);
@@ -92,7 +97,7 @@ public class ConfirmCreationPrompt extends StringPrompt {
         else if (s.equalsIgnoreCase("n") || s.equalsIgnoreCase(config.getString("no-word"))){
             if (creation.equalsIgnoreCase("key")) return new CreateKeyPrompt(plugin, messageManager, mainMenu, keyMenu);
 
-            return new MessagePrompt(plugin, messageManager, seeMessageMenu, key, creation);
+            return new MessagePrompt(plugin, fileManager, messageManager, seeMessageMenu, key, creation);
         }
 
         context.getForWhom().sendRawMessage(BotPlugin.getMessageHandler().getMessage("write-y-n")

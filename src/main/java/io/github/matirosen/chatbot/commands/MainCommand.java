@@ -100,25 +100,9 @@ public class MainCommand implements TabExecutor {
         List<String> tab = new ArrayList<>();
         if (!(sender instanceof Player)) return tab;
 
-
-        if (sender.hasPermission("chatbot.remove")) tab.add("remove");
         if (sender.hasPermission("chatbot.menu")) tab.add("menu");
         if (sender.hasPermission("chatbot.help")) tab.add("help");
         if (sender.hasPermission("chatbot.reload")) tab.add("reload");
-
-        if (sender.hasPermission("chatbot.remove")){
-            tab.add("remove");
-            if (args[0].equalsIgnoreCase("remove") && args.length == 2 && args[1].isEmpty()){
-                tab.addAll(fileManager.get("messages").getKeys(false));
-                tab.add("messages");
-                tab.add("permission-responses");
-                tab.add("no-permission-responses");
-            } else if (args.length == 3){
-                tab.add("messages");
-                tab.add("permission-responses");
-                tab.add("no-permission-responses");
-            }
-        }
 
         return tab;
     }

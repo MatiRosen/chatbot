@@ -22,6 +22,10 @@ public class ComponentRenderer {
 
     public void sendComponents(Player player, String key, String s, int page){
         List<String> list = fileManager.get("messages").getStringList(key + "." + s);
+        if (s.equalsIgnoreCase("permission")){
+            list = new ArrayList<>();
+            list.add(fileManager.get("messages").getString(key + ".permission"));
+        }
         if (list.isEmpty()) return;
 
         List<BaseComponent[]> components = getComponents(list, key, s, page);

@@ -1,0 +1,70 @@
+##########GENERAL##########
+help-command:
+  - '&bUsa &d/chatbot menu &bpara abrir el menú de configuración. &4(Necesita permisos!)'
+  - '&bUsa &d/chatbot help &bpara mostrar esto.'
+  - '&bUse &d/chatbot reload to reload the plugin. &4(Necesita permisos!)'
+use-help: '&bUsa &d/chatbot help &bpara mostrar todos los comandos'
+no-permission: '%prefix% &cNo tienes permiso para hacer eso!'
+plugin-reloaded: '%prefix% &aPlugin recargado.'
+player-in-cooldown: '%prefix% &cDebes esperar %time% segundos antes de volver a usarlo.'
+
+##########CONVERSATIONS##########
+already-configuring: '%prefix% &cDebes terminar de configurar para usar un comando!'
+cancel-any-time: '%prefix% &7Puedes cancelar en cualquier momento escribiendo "&c%cancel%&7"'
+write-y-n: '&7Debes escribir "%yes%" o "%no%"'
+
+######KEY######
+write-key: '&aEscribe el nombre de la key:'
+key-creation-cancelled: '%prefix% &cSe canceló la creacion de key'
+only-one-word: '&cSolo debes escribir una palabra para la key. Intentalo nuevamente.'
+finish-writing-key: '&7Usaste &d%key% &7como key. ¿Deseas confirmar? &b(%yes%/%no%)'
+key-created: '&aCreaste la key &d%key%'
+
+######PERMISSION######
+actual-permission: '&aEl permiso actual es &d%permission%&a.'
+write-permission: '&aEscribe el permiso nuevo.'
+permission-cancelled: '%prefix% &cCancelaste la creación del permiso'
+finish-writing-permission: '&aConfirmas este permiso? &b(%yes%/%no%)'
+permission-created: '&aSe creó el permiso.'
+remove-permission: '&cDeseas eliminar el permiso? &b(%yes%/%no%)'
+permission-removed: '%prefix% &aEliminaste el permiso'
+permission-remove-cancelled: '%prefix% &aNo eliminaste el permiso'
+
+######MESSAGES######
+write-messages: '&aEscribe el mensaje:'
+messages-cancelled: '%prefix% &cCancelaste la creación del mensaje'
+finish-writing-messages: '&aConfirmas el mensaje? &b(%yes%/%no%)'
+messages-created: '&aSe creó el mensaje'
+remove-messages: '&cDeseas eliminar el mensaje? &b(%yes%/%no%)'
+messages-removed: '%prefix% &aEliminaste el mensaje'
+messages-remove-cancelled: '%prefix% &aNo eliminaste el mensaje'
+
+######RESPONSES######
+write-permission-responses: '&aEscribe la respuesta:'
+permission-responses-cancelled: '%prefix% &cCancelaste la creacion de la respuesta'
+finish-writing-permission-responses: '&aConfirmas la respuesta? &b(%yes%/%no%)'
+permission-responses-created: '&aLa respuesta fue creada'
+remove-permission-responses: '&cDeseas eliminar la respuesta? &b(%yes%/%no%)'
+permission-responses-removed: '%prefix% &aEliminaste la respuesta'
+permission-responses-remove-cancelled: '%prefix% &aNo eliminaste la respuesta'
+
+write-no-permission-responses: '&aEscribe la respuesta:'
+no-permission-responses-cancelled: '%prefix% &cCancelaste la creacion de la respuesta'
+finish-writing-no-permission-responses: '&aConfirmas la respuesta? &b(%yes%/%no%)'
+no-permission-responses-created: '&aLa respuesta fue creada'
+remove-no-permission-responses: '&cDeseas eliminar la respuesta? &b(%yes%/%no%)'
+no-permission-responses-removed: '%prefix% &aEliminaste la respuesta'
+no-permission-responses-remove-cancelled: '%prefix% &aNo eliminaste la respuesta'
+
+##########SEE CONTENTS##########
+see-separator: '&d-------------%prefix%&d----------------'
+next-arrow: '&6->'
+hover-next-arrow: '&bClick para ver más'
+previous-arrow: '&6<-'
+hover-previous-arrow: '&bClick para ir atrás'
+remove-hover: '&cClick para eliminar'
+
+see-messages-title: '     &bMensajes de la key &d%key% &bpágina %page%'
+see-permission-responses-title: '    &bRespuestas de la key &d%key%'
+see-no-permission-responses-title: '    &bRespuestas de la key &d%key%'
+see-permission-title: '        &bPermiso de la key &d%key%'

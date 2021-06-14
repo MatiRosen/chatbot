@@ -6,7 +6,7 @@ help-command:
 use-help: '&bUse &d/chatbot help &bto show all commands'
 no-permission: '%prefix% &cYou do not have permission to do that!'
 plugin-reloaded: '%prefix% &aPlugin reloaded.'
-
+player-in-cooldown: '&cYou are in cooldown. Wait another %time% seconds.'
 
 ##########CONVERSATIONS##########
 already-configuring: '%prefix% &cYou should end your actual conversation before doing another command!'
@@ -20,10 +20,20 @@ only-one-word: '&cYou should use only one word for the key. Write it back.'
 finish-writing-key: '&7You used &d%key% &7as key. Do you confirm? &b(%yes%/%no%)'
 key-created: '&aYou created the key &d%key%'
 
+######PERMISSION######
+actual-permission: '&aThe actual permission is &d%permission%&a.'
+write-permission: '&aWrite the new permission.'
+permission-cancelled: '%prefix% &cPermission creation canceled'
+finish-writing-permission: '&aDo you confirm your permission? &b(%yes%/%no%)'
+permission-created: '&aPermission has been created.'
+remove-permission: '&cDo you want to remove the permission? &b(%yes%/%no%)'
+permission-removed: '%prefix% &aYou removed the permission'
+permission-remove-cancelled: '%prefix% &aYou haven''t removed the permission'
+
 ######MESSAGES######
 write-messages: '&aWrite the message:'
 messages-cancelled: '%prefix% &cMessage creation canceled'
-finish-writing-messages: 'Do you confirm your message? &b(%yes%/%no%)'
+finish-writing-messages: '&aDo you confirm your message? &b(%yes%/%no%)'
 messages-created: '&aMessage has been created.'
 remove-messages: '&cDo you want to remove the message? &b(%yes%/%no%)'
 messages-removed: '%prefix% &aYou removed the message'
@@ -32,7 +42,7 @@ messages-remove-cancelled: '%prefix% &aYou haven''t removed the message'
 ######RESPONSES######
 write-permission-responses: '&aWrite the permission response:'
 permission-responses-cancelled: '%prefix% &cPermission response creation canceled'
-finish-writing-permission-responses: 'Do you confirm your permission response? &b(%yes%/%no%)'
+finish-writing-permission-responses: '&aDo you confirm your permission response? &b(%yes%/%no%)'
 permission-responses-created: '&aPermission response has been created.'
 remove-permission-responses: '&cDo you want to remove the permission response? &b(%yes%/%no%)'
 permission-responses-removed: '%prefix% &aYou removed the permission response'
@@ -40,7 +50,7 @@ permission-responses-remove-cancelled: '%prefix% &aYou haven''t removed the perm
 
 write-no-permission-responses: '&aWrite the no permission response:'
 no-permission-responses-cancelled: '%prefix% &cNo permission response creation canceled'
-finish-writing-no-permission-responses: 'Do you confirm your no permission response? &b(%yes%/%no%)'
+finish-writing-no-permission-responses: '&aDo you confirm your no permission response? &b(%yes%/%no%)'
 no-permission-responses-created: '&aNo permission response has been created.'
 remove-no-permission-responses: '&cDo you want to remove the no permission response? &b(%yes%/%no%)'
 no-permission-responses-removed: '%prefix% &aYou removed the no permission response'
@@ -57,3 +67,4 @@ remove-hover: '&cClick to remove'
 see-messages-title: '       &bMessages from key &d%key% &bpage %page%'
 see-permission-responses-title: '    &bPermission responses from key &d%key%'
 see-no-permission-responses-title: '  &bNo permission responses from key &d%key%'
+see-permission-title: '        &bPermission from key &d%key%'
