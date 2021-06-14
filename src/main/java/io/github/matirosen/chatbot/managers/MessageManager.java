@@ -3,6 +3,7 @@ package io.github.matirosen.chatbot.managers;
 import io.github.matirosen.chatbot.BotMessage;
 import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.utils.Utils;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -86,12 +87,17 @@ public class MessageManager {
         FileConfiguration config = plugin.getConfig();
         Random random = new Random();
         String randomResponse = answers.get(random.nextInt(answers.size()));
+        if (BotPlugin.papiEnabled){
+            randomResponse = PlaceholderAPI.setPlaceholders(player, randomResponse);
+        }
 
+        String finalRandomResponse = randomResponse;
         new BukkitRunnable(){
             @Override
             public void run(){
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
-                    onlinePlayer.sendMessage(Utils.format(randomResponse.replace("%prefix%", config.getString("prefix"))));
+                    onlinePlayer.sendMessage(Utils.format(finalRandomResponse.replace("%prefix%", config.getString("prefix"))
+                            .replace("%player%", player.getDisplayName())));
                 }
                 if (!player.hasPermission("chatbot.bypass.cooldown")){
                     coolDownMap.put(player, System.currentTimeMillis());

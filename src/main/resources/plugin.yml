@@ -4,6 +4,8 @@ main: io.github.matirosen.chatbot.BotPlugin
 author: MatiRosen
 website: https://github.com/MatiRosen/chatbot
 prefix: ChatBot
+softdepend:
+  - PlaceholderAPI
 
 commands:
   chatbot:

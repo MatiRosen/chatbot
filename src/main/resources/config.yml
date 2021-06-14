@@ -12,8 +12,6 @@ delay: 20
 # Time (in seconds) before the bot responses to the same player.
 player-cooldown: 5
 
-
-
 # Word to cancel the configuration.
 cancel-word: "cancel"
 

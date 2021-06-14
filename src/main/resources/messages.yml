@@ -12,3 +12,22 @@ author:
   # List of responses that the bot will answer if player has the permission.
   permission-responses:
     - '%prefix% &aThe author is @MatiRosen'
+ip:
+  messages:
+    - 'Server ip'
+    - 'What is the ip'
+  permission: ''
+  no-permission-responses: []
+  permission-responses:
+    - '%prefix% &e%player% The ip is blabla.com'
+joke:
+  messages:
+    - 'Tell me a joke'
+    - 'Chatbot joke'
+  permission: 'chatbot.joke'
+  no-permission-responses:
+    - '%prefix% &e%player% i won''t tell you a joke'
+    - '%prefix% &e%player% You can buy jokes in our store!'
+  permission-responses:
+    - '%prefix% &aHear about the new restaurant called Karma? &bThere’s no menu: You get what you deserve.'
+    - '%prefix% &aDid you hear about the claustrophobic astronaut? &bHe just needed a little space.'
