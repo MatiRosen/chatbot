@@ -3,7 +3,7 @@
 # ChatBot
 ![Alt Text](https://i.imgur.com/4LEHuUj.png)
 
-ChatBot is a chat plugin for Minecraft servers. 
+Introducing ChatBot, a lightweight, fully in-game configurable, plug & play plugin 
 
 
 
