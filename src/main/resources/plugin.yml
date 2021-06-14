@@ -10,3 +10,10 @@ softdepend:
 commands:
   chatbot:
     description: Main command for ChatBot
+permissions:
+  chatbot.menu:
+    description: Permission to open menu
+  chatbot.help:
+    description: Permission to get help
+  chatbot.reload:
+    description: Permission to reload plugin
