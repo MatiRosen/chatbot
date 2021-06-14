@@ -17,3 +17,5 @@ permissions:
     description: Permission to get help
   chatbot.reload:
     description: Permission to reload plugin
+  chatbot.bypass.cooldown:
+    description: Permission to bypass cooldown
