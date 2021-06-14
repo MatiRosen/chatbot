@@ -18,6 +18,13 @@ ChatBot is a chat plugin for Minecraft servers.
 * **chatbot.reload** (Allows players to use reload command)
 * **chatbot.bypass.cooldown** (Allows players to bypass the chatbot cooldown.)
 
+![Alt Text](https://i.imgur.com/F1Bijy7.png)
+
+![Alt Text](https://imgur.com/Arq4WAC.png)
+![Alt Text](https://imgur.com/0tglEfL.png)
+![Alt Text](https://imgur.com/2eS6yAl.png)
+![Alt Text](https://imgur.com/Bk7QzhI.png)
+![Alt Text](https://imgur.com/oKQu7zo.png)
 
 ![Alt Text](https://i.imgur.com/865JxZg.png)
 ## * **[Download]()**
