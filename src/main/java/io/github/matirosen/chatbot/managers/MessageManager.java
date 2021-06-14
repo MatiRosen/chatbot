@@ -87,7 +87,8 @@ public class MessageManager {
         FileConfiguration config = plugin.getConfig();
         Random random = new Random();
         String randomResponse = answers.get(random.nextInt(answers.size()));
-        if (BotPlugin.papiEnabled){
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
             randomResponse = PlaceholderAPI.setPlaceholders(player, randomResponse);
         }
 

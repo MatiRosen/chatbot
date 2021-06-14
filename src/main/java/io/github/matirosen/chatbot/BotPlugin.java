@@ -27,11 +27,6 @@ public class BotPlugin extends JavaPlugin {
     private CommandListener commandListener;
 
     private static MessageHandler messageHandler;
-    public static boolean papiEnabled;
-
-    public void onLoad(){
-
-    }
 
     public void onEnable(){
         try {
@@ -39,10 +34,6 @@ public class BotPlugin extends JavaPlugin {
             injector.injectMembers(this);
         } catch (Exception e){
             e.printStackTrace();
-        }
-
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
-            papiEnabled = true;
         }
 
         fileManager.loadAllFileConfigurations();
