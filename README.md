@@ -5,6 +5,26 @@
 
 Introducing ChatBot, a lightweight, fully in-game configurable, plug & play plugin 
 
+ChatBot is a bot that answers messages in the chat. When a player asks or says something, the bot reads it and, if you configurated a response for this message, it will answer. 
+You can set multiple responses to multiple messages, separated by keys. You can also set permission, so then you can set up permission responses and no permission responses.
+
+Let's suppose that you configurated this in the YAML: 
+ip:
+  messages:
+    . 'What is the ip'
+    - 'How can i enter to the server'
+  permission: 'chatbot.ip'
+  permission-responses: 
+    - '%prefix% &e@%player% &bThe ip is ...'
+    - '%prefix% &bIP: ...'
+  no-permission-responses:
+    - '%prefix% &cI won't tell you'
+
+When a player writes in the chat "What is the ip?", or any message that contains this message (for example, "Hey guys, anyone knows what is the IP? Please!"), if the player has 'chatbot.ip' permission then the bot will choose a random response from permission-responses and say that. Otherwise, if player has not this permission, the bot will say "%prefix% &cI won't tell you". 
+
+It is also in-game configurable. You can get more info in the [Wiki](https://github.com/MatiRosen/chatbot/wiki/Wiki). It is fully customizable and translatable. 
+
+PlaceholderAPI: You can use PAPI and use any placeholder you want in your responses!
 
 
 ![Alt Text](https://i.imgur.com/T7dZJrX.png)
