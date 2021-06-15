@@ -9,6 +9,7 @@ ChatBot is a bot that answers messages in the chat. When a player asks or says s
 You can set multiple responses to multiple messages, separated by keys. You can also set permission, so then you can set up permission responses and no permission responses.
 
 Let's suppose that you configurated this in the YAML: 
+```
 ip:
   messages:
     . 'What is the ip'
@@ -19,6 +20,7 @@ ip:
     - '%prefix% &bIP: ...'
   no-permission-responses:
     - '%prefix% &cI won't tell you'
+  ```
 
 When a player writes in the chat "What is the ip?", or any message that contains this message (for example, "Hey guys, anyone knows what is the IP? Please!"), if the player has 'chatbot.ip' permission then the bot will choose a random response from permission-responses and say that. Otherwise, if player has not this permission, the bot will say "%prefix% &cI won't tell you". 
 
