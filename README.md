@@ -49,7 +49,7 @@ PlaceholderAPI: You can use PAPI and use any placeholder you want in your respon
 ![Alt Text](https://imgur.com/oKQu7zo.png)
 
 ![Alt Text](https://i.imgur.com/865JxZg.png)
-## * **[Download]()**
+## * **[Download](https://www.spigotmc.org/resources/chatbot-in-game-configurable.93347/)**
 ## * **[Wiki](https://github.com/MatiRosen/chatbot/wiki/Wiki)**
 ## * **[Discord](https://discord.gg/cvagVTztZZ) server for help**
 ## * **Drawings by [AlanAMB](https://www.instagram.com/alanadmaba/)**
