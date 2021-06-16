@@ -50,7 +50,7 @@
                         </relocation>
                         <relocation>
                             <pattern>javax.inject</pattern>
-                            <shadedPattern>io.github.matirosen.bugreport.chatbot.inject</shadedPattern>
+                            <shadedPattern>io.github.matirosen.chatbot.inject</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
