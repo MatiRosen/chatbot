@@ -1,9 +1,10 @@
 name: chatbot
-version: 1.0
+version: 2.0
 main: io.github.matirosen.chatbot.BotPlugin
 author: MatiRosen
 website: https://github.com/MatiRosen/chatbot
 prefix: ChatBot
+api-version: 1.13
 softdepend:
   - PlaceholderAPI
 

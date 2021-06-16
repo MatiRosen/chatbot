@@ -6,6 +6,7 @@ import io.github.matirosen.chatbot.guis.MainMenu;
 import io.github.matirosen.chatbot.utils.Utils;
 import io.github.matirosen.chatbot.managers.FileManager;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
