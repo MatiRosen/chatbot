@@ -41,8 +41,8 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
-                            <pattern>team.unnamed.gui</pattern>
-                            <shadedPattern>io.github.matirosen.chatbot.gui</shadedPattern>
+                            <pattern>team.unnamed</pattern>
+                            <shadedPattern>io.github.matirosen.chatbot</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>me.yushust.inject</pattern>

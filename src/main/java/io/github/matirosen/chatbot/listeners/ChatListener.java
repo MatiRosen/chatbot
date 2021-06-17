@@ -28,7 +28,7 @@ public class ChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event){
-        String message = Normalizer.normalize(event.getMessage().toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}", "");
+        String message = Normalizer.normalize(event.getMessage().toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}|,| ", "");
         messageManager.sendMessageAsync(message, event.getPlayer());
     }
 }
