@@ -110,7 +110,7 @@ public class MessageManager {
     private String getMatchedKey(FileConfiguration messagesFile, String message) {
         for (String key : getKeys()){
             for (String s : messagesFile.getStringList(key + ".messages")){
-                if (message.contains(Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}", ""))) return key;
+                if (message.contains(Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD).replaceAll("\\p{M}|,| ", ""))) return key;
             }
         }
         return null;

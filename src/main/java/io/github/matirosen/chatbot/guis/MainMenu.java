@@ -47,7 +47,7 @@ public class MainMenu {
                     .build());
         }
 
-        Inventory inventory = GUIBuilder.builderPaginated(ItemStack.class, Utils.format(config.getString("main-menu.title")))
+        return GUIBuilder.builderPaginated(ItemStack.class, Utils.format(config.getString("main-menu.title")))
                 .setBounds(0, 45)
                 .setEntities(entities)
                 .setItemParser(item -> ItemClickable.builder()
@@ -86,9 +86,5 @@ public class MainMenu {
                 .setPreviousPageItem(page ->
                         Utils.getChangePageItem(plugin, "main-menu.items.","previous", page))
                 .build();
-
-        System.out.println(this.getClass() + "class");
-        System.out.println(inventory.getClass() + "invClass");
-        return inventory;
     }
 }
