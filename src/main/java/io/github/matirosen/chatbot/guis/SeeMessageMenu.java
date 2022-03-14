@@ -1,7 +1,6 @@
 package io.github.matirosen.chatbot.guis;
 
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
-import io.github.matirosen.chatbot.conversations.CreateKeyPrompt;
 import io.github.matirosen.chatbot.conversations.MessagePrompt;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.managers.MessageManager;

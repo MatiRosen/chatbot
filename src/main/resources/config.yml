@@ -22,6 +22,8 @@ done-word: "done"
 yes-word: "yes"
 no-word: "no"
 
+# Everyone can see the response. True for everyone, false for only the player who asked.
+see-message: true
 
 main-menu:
   title: '&8ChatBot menu'

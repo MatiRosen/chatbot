@@ -2,11 +2,9 @@ package io.github.matirosen.chatbot.listeners;
 
 import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
-import io.github.matirosen.chatbot.conversations.MessagePrompt;
 import io.github.matirosen.chatbot.conversations.RemovePrompt;
 import io.github.matirosen.chatbot.managers.FileManager;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
