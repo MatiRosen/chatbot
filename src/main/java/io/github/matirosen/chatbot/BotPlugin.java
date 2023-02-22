@@ -6,11 +6,13 @@ import io.github.matirosen.chatbot.listeners.CommandListener;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.modules.CoreModule;
 import io.github.matirosen.chatbot.utils.MessageHandler;
-
 import me.yushust.inject.Injector;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import team.unnamed.gui.core.GUIListeners;
+import team.unnamed.gui.menu.listener.InventoryClickListener;
+import team.unnamed.gui.menu.listener.InventoryCloseListener;
+import team.unnamed.gui.menu.listener.InventoryOpenListener;
 
 import javax.inject.Inject;
 
@@ -38,9 +40,12 @@ public class BotPlugin extends JavaPlugin {
 
         fileManager.loadAllFileConfigurations();
         mainCommand.start();
-
         messageHandler = new MessageHandler(fileManager);
-        Bukkit.getPluginManager().registerEvents(new GUIListeners(), this);
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new InventoryClickListener(), this);
+        pluginManager.registerEvents(new InventoryOpenListener(), this);
+        pluginManager.registerEvents(new InventoryCloseListener(this), this);
+
     }
 
     public static MessageHandler getMessageHandler(){

@@ -1,23 +1,20 @@
 package io.github.matirosen.chatbot.guis;
 
-import io.github.matirosen.chatbot.conversations.MessagePrompt;
 import io.github.matirosen.chatbot.managers.FileManager;
-import io.github.matirosen.chatbot.managers.MessageManager;
 import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.conversations.Conversation;
-import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
-import team.unnamed.gui.abstraction.item.ItemClickable;
-import team.unnamed.gui.core.gui.type.GUIBuilder;
-import team.unnamed.gui.core.item.type.ItemBuilder;
+import team.unnamed.gui.item.ItemBuilder;
+import team.unnamed.gui.menu.item.ItemClickable;
+import team.unnamed.gui.menu.type.MenuInventory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class KeyMenu {
 
@@ -26,28 +23,26 @@ public class KeyMenu {
     @Inject
     private ConfirmRemoveMenu confirmRemoveMenu;
     @Inject
-    private MessageManager messageManager;
-    @Inject
     private SeeMessageMenu seeMessageMenu;
     @Inject
     private FileManager fileManager;
     @Inject
     private MainMenu mainMenu;
 
-    public Inventory build(String key){
+    public Inventory build(String key, Player player){
         FileConfiguration config = plugin.getConfig();
-
-        return GUIBuilder.builder(Utils.format(config.getString("key-menu.title").replace("%key%", key)), 1)
-                .addItem(getItemClickable(0, "messages", key))
-                .addItem(getItemClickable(1, "permission-responses", key))
-                .addItem(getItemClickable(2, "no-permission-responses", key))
-                .addItem(getItemClickable(3, "permission", key))
-                .addItem(getItemClickable(4, "remove-key", key))
-                .addItem(getItemClickable(8, "back", key))
+        String title = Utils.format(Objects.requireNonNull(config.getString("key-menu.title")).replace("%key%", key));
+        return MenuInventory.newBuilder(title, 1)
+                .item(getItemClickable(0, "messages", key, player))
+                .item(getItemClickable(1, "permission-responses", key, player))
+                .item(getItemClickable(2, "no-permission-responses", key, player))
+                .item(getItemClickable(3, "permission", key, player))
+                .item(getItemClickable(4, "remove-key", key, player))
+                .item(getItemClickable(8, "back", key, player))
                 .build();
     }
 
-    private ItemClickable getItemClickable(int slot, String s, String key){
+    private ItemClickable getItemClickable(int slot, String s, String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String keyFile = "key-menu.items." + s;
 
@@ -61,26 +56,25 @@ public class KeyMenu {
         }
 
         return ItemClickable.builder(slot)
-                .setItemStack(ItemBuilder.newBuilder(material)
-                        .setName(name)
-                        .setLore(lore)
+                .item(ItemBuilder.builder(material)
+                        .name(name)
+                        .lore(lore)
                         .build())
-                .setAction(event -> {
+                .action(inventory -> {
                     if (s.equalsIgnoreCase("messages")){
-                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "messages"));
+                        player.openInventory(seeMessageMenu.build(key, "messages", player));
                     }else if (s.equalsIgnoreCase("permission-responses")){
-                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "permission-responses"));
+                        player.openInventory(seeMessageMenu.build(key, "permission-responses", player));
                     }else if (s.equalsIgnoreCase("no-permission-responses")){
-                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "no-permission-responses"));
+                        player.openInventory(seeMessageMenu.build(key, "no-permission-responses", player));
                     }else if (s.equalsIgnoreCase("permission")){
-                        event.getWhoClicked().openInventory(seeMessageMenu.build(key, "permission"));
+                        player.openInventory(seeMessageMenu.build(key, "permission", player));
                     } else if (s.equalsIgnoreCase("remove-key")){
-                        event.getWhoClicked().openInventory(confirmRemoveMenu.build(key));
+                        player.openInventory(confirmRemoveMenu.build(key, player));
                     } else if (s.equalsIgnoreCase("back")){
-                        event.getWhoClicked().openInventory(mainMenu.build());
-                    }
-
-                    event.setCancelled(true);
+                        player.openInventory(mainMenu.build(player));
+                    } else return false;
+                    //event.setCancelled(true);
                     return true;
                 })
                 .build();

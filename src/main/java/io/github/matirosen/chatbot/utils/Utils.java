@@ -4,8 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import team.unnamed.gui.abstraction.item.ItemClickable;
-import team.unnamed.gui.core.item.type.ItemBuilder;
+import team.unnamed.gui.item.ItemBuilder;
+import team.unnamed.gui.menu.item.ItemClickable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,10 +36,10 @@ public class Utils {
         List<String> lore = Arrays.asList(Utils.format(config.getStringList(menu + next + "-page.lore")));
 
         return ItemClickable.builder(slot)
-                .setItemStack(ItemBuilder
-                        .newBuilder(material)
-                        .setName(name)
-                        .setLore(lore)
+                .item(ItemBuilder
+                        .builder(material)
+                        .name(name)
+                        .lore(lore)
                         .build())
                 .build();
     }

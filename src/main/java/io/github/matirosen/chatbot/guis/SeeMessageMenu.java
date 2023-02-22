@@ -12,9 +12,9 @@ import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
-import team.unnamed.gui.abstraction.item.ItemClickable;
-import team.unnamed.gui.core.gui.type.GUIBuilder;
-import team.unnamed.gui.core.item.type.ItemBuilder;
+import team.unnamed.gui.item.ItemBuilder;
+import team.unnamed.gui.menu.item.ItemClickable;
+import team.unnamed.gui.menu.type.MenuInventory;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -33,18 +33,18 @@ public class SeeMessageMenu {
     @Inject
     private FileManager fileManager;
 
-    public Inventory build(String key, String path){
+    public Inventory build(String key, String path, Player player){
         FileConfiguration config = plugin.getConfig();
 
 
-        return GUIBuilder.builder(Utils.format(config.getString(path + "-menu.title").replace("%key%", key)), 1)
-                .addItem(getItemClickable(0, "create", path, key))
-                .addItem(getItemClickable(1, "see", path, key))
-                .addItem(getItemClickable(8, "back", path, key))
+        return MenuInventory.newBuilder(Utils.format(config.getString(path + "-menu.title").replace("%key%", key)), 1)
+                .item(getItemClickable(0, "create", path, key, player))
+                .item(getItemClickable(1, "see", path, key, player))
+                .item(getItemClickable(8, "back", path, key, player))
                 .build();
     }
 
-    private ItemClickable getItemClickable(int slot, String s, String path, String key){
+    private ItemClickable getItemClickable(int slot, String s, String path, String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String keyFile = path + "-menu.items." + s;
 
@@ -60,11 +60,9 @@ public class SeeMessageMenu {
         List<String> lore = Arrays.asList(Utils.format(config.getStringList(keyFile + ".lore")));
 
         return ItemClickable.builder(slot)
-                .setItemStack(ItemBuilder.newBuilder(material).setName(name).setLore(lore).build())
-                .setAction(event -> {
+                .item(ItemBuilder.builder(material).name(name).lore(lore).build())
+                .action(inventory -> {
                     if (s.equalsIgnoreCase("create")){
-                        Player player = (Player) event.getWhoClicked();
-
                         ConversationFactory cf = new ConversationFactory(plugin);
                         Conversation conversation = cf
                                 .withFirstPrompt(new MessagePrompt(plugin, fileManager, messageManager, this, key, path))
@@ -75,14 +73,13 @@ public class SeeMessageMenu {
 
                         player.closeInventory();
                     } else if (s.equalsIgnoreCase("see")){
-                        Player player = (Player) event.getWhoClicked();
                         componentRenderer.sendComponents(player, key, path, 1);
                         player.closeInventory();
                     } else if (s.equalsIgnoreCase("back")){
-                        event.getWhoClicked().openInventory(keyMenu.build(key));
+                        player.openInventory(keyMenu.build(key, player));
                     }
 
-                    event.setCancelled(true);
+                    //event.setCancelled(true);
                     return true;
                 }).build();
     }

@@ -3,15 +3,13 @@ package io.github.matirosen.chatbot.commands;
 import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
 import io.github.matirosen.chatbot.guis.MainMenu;
-import io.github.matirosen.chatbot.utils.Utils;
 import io.github.matirosen.chatbot.managers.FileManager;
+import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import javax.inject.Inject;
@@ -60,7 +58,7 @@ public class MainCommand implements TabExecutor {
                 BotPlugin.getMessageHandler().send(player, "no-permission");
                 return false;
             }
-            player.openInventory(mainMenu.build());
+            player.openInventory(mainMenu.build(player));
             return true;
         }
 

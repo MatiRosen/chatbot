@@ -84,9 +84,9 @@ public class ConfirmCreationPrompt extends StringPrompt {
             messageManager.saveMessage(botMessage);
 
             if (creation.equalsIgnoreCase("key")){
-                player.openInventory(keyMenu.build(key));
+                player.openInventory(keyMenu.build(key, player));
             } else {
-                player.openInventory(seeMessageMenu.build(key, creation));
+                player.openInventory(seeMessageMenu.build(key, creation, player));
             }
 
             BotPlugin.getMessageHandler().send(player, creation + "-created");

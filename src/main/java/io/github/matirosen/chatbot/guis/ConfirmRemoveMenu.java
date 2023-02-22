@@ -4,15 +4,17 @@ import io.github.matirosen.chatbot.managers.MessageManager;
 import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
-import team.unnamed.gui.abstraction.item.ItemClickable;
-import team.unnamed.gui.core.gui.type.GUIBuilder;
-import team.unnamed.gui.core.item.type.ItemBuilder;
+import team.unnamed.gui.item.ItemBuilder;
+import team.unnamed.gui.menu.item.ItemClickable;
+import team.unnamed.gui.menu.type.MenuInventory;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ConfirmRemoveMenu {
 
@@ -25,14 +27,15 @@ public class ConfirmRemoveMenu {
     @Inject
     private MainMenu mainMenu;
 
-    public Inventory build(String key){
-        return GUIBuilder.builder(Utils.format(plugin.getConfig().getString("remove-menu.title").replace("%key%", key)), 1)
-                .addItem(getItemClickable(2, "confirm", key))
-                .addItem(getItemClickable(5, "cancel", key))
+    public Inventory build(String key, Player player){
+        String title = Utils.format(Objects.requireNonNull(plugin.getConfig().getString("remove-menu.title")).replace("%key%", key));
+        return MenuInventory.newBuilder(title, 1)
+                .item(getItemClickable(2, "confirm", key, player))
+                .item(getItemClickable(5, "cancel", key, player))
                 .build();
     }
 
-    private ItemClickable getItemClickable(int slot, String s, String key){
+    private ItemClickable getItemClickable(int slot, String s, String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String keyFile = "remove-menu.items." + s;
 
@@ -45,18 +48,18 @@ public class ConfirmRemoveMenu {
         }
 
         return ItemClickable.builder(slot)
-                .setItemStack(ItemBuilder.newBuilder(material)
-                        .setName(name)
-                        .setLore(lore)
+                .item(ItemBuilder.builder(material)
+                        .name(name)
+                        .lore(lore)
                         .build())
-                .setAction(event -> {
+                .action(inventory -> {
                     if (s.equalsIgnoreCase("confirm")){
                         messageManager.removeKey(key);
-                        event.getWhoClicked().openInventory(mainMenu.build());
+                        player.openInventory(mainMenu.build(player));
                     } else if (s.equalsIgnoreCase("cancel")){
-                        event.getWhoClicked().openInventory(keyMenu.build(key));
+                        player.openInventory(keyMenu.build(key, player));
                     }
-                    event.setCancelled(true);
+                    //event.setCancelled(true);
                     return true;
                 })
                 .build();
