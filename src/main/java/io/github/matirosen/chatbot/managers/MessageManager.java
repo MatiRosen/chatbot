@@ -99,11 +99,11 @@ public class MessageManager {
                 if (fileManager.get("config").getBoolean("see-message")){
                     for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
                         onlinePlayer.sendMessage(Utils.format(finalRandomResponse.replace("%prefix%", config.getString("prefix"))
-                                .replace("%player%", player.getDisplayName())));
+                                .replace("%player%", player.getDisplayName()).replace("%player_name%", player.getDisplayName())));
                     }
                 } else{
                     player.sendMessage(Utils.format(finalRandomResponse.replace("%prefix%", config.getString("prefix"))
-                            .replace("%player%", player.getDisplayName())));
+                            .replace("%player%", player.getDisplayName()).replace("%player_name%", player.getDisplayName())));
                 }
                 if (!player.hasPermission("chatbot.bypass.cooldown")){
                     coolDownMap.put(player, System.currentTimeMillis());

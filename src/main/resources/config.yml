@@ -27,7 +27,44 @@ see-message: true
 
 main-menu:
   title: '&8ChatBot menu'
+  rows: 6
+  layout:
+    # Here you can use any letter you want and just add the key below. (Use 'e' for messages, 'p' for previous-page, 'n' for next-page 'c' for create)
+    lines:
+      - 'xxxxxxxxx'
+      - 'xyeeeeeyx'
+      - 'xeeeeeeex'
+      - 'xyeeeeeyx'
+      - 'xyyeeeyyx'
+      - 'xpxxcxxnx'
   items:
+    x:
+      material: 'STAINED_GLASS_PANE:PINK'
+      name: '   '
+      lore: []
+    y:
+      material: 'STAINED_GLASS_PANE:WHITE'
+      name: '   '
+      lore: []
+    #Do not remove any of these items. If you want to remove them from the menu, just edit the layout.
+    next-page:
+      material: ARROW
+      name: '&bGo to page %page%'
+      lore:
+        - '&bClick here to go to next page'
+    previous-page:
+      material: ARROW
+      name: '&bGo to page %page%'
+      lore:
+        - '&bClick here to go to previous page'
+    no-next-page:
+      material: 'STAINED_GLASS_PANE:PINK'
+      name: '   '
+      lore: []
+    no-previous-page:
+      material: 'STAINED_GLASS_PANE:PINK'
+      name: '   '
+      lore: []
     keys:
       material: PAPER
       name: '&bOpen %key%'
@@ -38,136 +75,147 @@ main-menu:
       name: '&bAdd a new key'
       lore:
         - '&7Right click to add a new key'
-    next-page:
-      material: ARROW
-      name: '&bGo to page %next_page%'
-      lore:
-        - '&bClick here to go to next page'
-    previous-page:
-      material: ARROW
-      name: '&bGo to page %previous_page%'
-      lore:
-        - '&bClick here to go to previous page'
 key-menu:
   title: '&8Seeing %key%'
+  rows: 1
   items:
     messages:
       material: WRITTEN_BOOK
+      slot: 0
       name: '&bSee or edit messages'
       lore:
         - '&7Click here to go to menu'
     permission-responses:
       material: EMERALD_BLOCK
+      slot: 1
       name: '&bSee or edit permission responses'
       lore:
         - '&7Click here to go to menu'
     no-permission-responses:
       material: REDSTONE_BLOCK
+      slot: 2
       name: '&bSee or edit no-permission responses'
       lore:
         - '&7Click here to go to menu'
-    add-message:
-      material: EMERALD_BLOCK
-      name: '&bAdd message'
-      lore:
-        - '&7Click here to add a message'
     permission:
       material: PAPER
+      slot: 3
       name: '&b%permission%'
       lore:
         - '&7Click here to edit permission'
     remove-key:
       material: BARRIER
+      slot: 4
       name: '&bRemove key'
       lore:
         - '&7Click here to remove key'
     back:
       material: ARROW
+      slot: 8
       name: '&bBack to Main Menu'
       lore:
         - '&7Click here to go back'
 remove-menu:
   title: '&8Remove %key%'
+  rows: 1
   items:
     confirm:
       material: EMERALD_BLOCK
+      slot: 2
       name: '&bConfirm remove of %key%'
       lore:
         - '&7Click here to confirm remove'
     cancel:
       material: REDSTONE_BLOCK
+      slot: 5
       name: '&bCancel remove of %key%'
       lore:
         - '&7Click here to cancel remove'
 permission-menu:
   title: '&8Permission options for key &d%key%'
+  rows: 1
   items:
     create:
       material: EMERALD_BLOCK
+      slot: 0
       name: '&bEdit permission %permission%'
       lore:
         - '&7Click here to start'
     see:
       material: REDSTONE_BLOCK
+      slot: 1
       name: '&bSee or remove permission'
       lore:
         - '&7Click here to see'
     back:
       material: ARROW
+      slot: 8
       name: '&bBack to Main Menu'
       lore:
         - '&7Click here to go back'
 messages-menu:
   title: '&8Messages options for key &d%key%'
+  rows: 1
   items:
     create:
       material: EMERALD_BLOCK
+      slot: 0
       name: '&bAdd a new message'
       lore:
         - '&7Click here to start'
     see:
       material: REDSTONE_BLOCK
+      slot: 1
       name: '&bSee all messages'
       lore:
         - '&7Click here to see'
     back:
       material: ARROW
+      slot: 8
       name: '&bBack to Main Menu'
       lore:
         - '&7Click here to go back'
 permission-responses-menu:
   title: '&8Permission responses options for key &d%key%'
+  rows: 1
   items:
     create:
       material: EMERALD_BLOCK
+      slot: 0
       name: '&bAdd a new permission response'
       lore:
         - '&7Click here to start'
     see:
       material: REDSTONE_BLOCK
+      slot: 1
       name: '&bSee all permission responses'
       lore:
         - '&7Click here to see'
     back:
       material: ARROW
+      slot: 8
       name: '&bBack to Main Menu'
       lore:
         - '&7Click here to go back'
 no-permission-responses-menu:
   title: '&8No permission responses options for key &d%key%'
+  rows: 1
   items:
     create:
       material: EMERALD_BLOCK
+      slot: 0
       name: '&bAdd a new no permission response'
       lore:
         - '&7Click here to start'
     see:
       material: REDSTONE_BLOCK
+      slot: 1
       name: '&bSee all no permission responses'
       lore:
         - '&7Click here to see'
     back:
       material: ARROW
+      slot: 8
       name: '&bBack to Main Menu'
       lore:
         - '&7Click here to go back'

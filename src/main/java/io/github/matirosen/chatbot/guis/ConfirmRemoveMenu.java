@@ -28,18 +28,20 @@ public class ConfirmRemoveMenu {
     private MainMenu mainMenu;
 
     public Inventory build(String key, Player player){
-        String title = Utils.format(Objects.requireNonNull(plugin.getConfig().getString("remove-menu.title")).replace("%key%", key));
-        return MenuInventory.newBuilder(title, 1)
-                .item(getItemClickable(2, "confirm", key, player))
-                .item(getItemClickable(5, "cancel", key, player))
+        FileConfiguration config = plugin.getConfig();
+        String title = Utils.format(Objects.requireNonNull(config.getString("remove-menu.title")).replace("%key%", key));
+        return MenuInventory.newBuilder(title, config.getInt("remove-menu.rows"))
+                .item(getItemClickable("confirm", key, player))
+                .item(getItemClickable("cancel", key, player))
                 .build();
     }
 
-    private ItemClickable getItemClickable(int slot, String s, String key, Player player){
+    private ItemClickable getItemClickable(String s, String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String keyFile = "remove-menu.items." + s;
 
         Material material = Material.valueOf(config.getString(keyFile + ".material").toUpperCase());
+        int slot = config.getInt(keyFile + ".slot");
         String name = Utils.format(config.getString(keyFile + ".name").replace("%key%", key));
         List<String> lore = new ArrayList<>();
 
@@ -52,14 +54,14 @@ public class ConfirmRemoveMenu {
                         .name(name)
                         .lore(lore)
                         .build())
-                .action(inventory -> {
+                .action(event -> {
                     if (s.equalsIgnoreCase("confirm")){
                         messageManager.removeKey(key);
                         player.openInventory(mainMenu.build(player));
                     } else if (s.equalsIgnoreCase("cancel")){
                         player.openInventory(keyMenu.build(key, player));
                     }
-                    //event.setCancelled(true);
+                    event.setCancelled(true);
                     return true;
                 })
                 .build();

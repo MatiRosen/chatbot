@@ -32,21 +32,22 @@ public class KeyMenu {
     public Inventory build(String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String title = Utils.format(Objects.requireNonNull(config.getString("key-menu.title")).replace("%key%", key));
-        return MenuInventory.newBuilder(title, 1)
-                .item(getItemClickable(0, "messages", key, player))
-                .item(getItemClickable(1, "permission-responses", key, player))
-                .item(getItemClickable(2, "no-permission-responses", key, player))
-                .item(getItemClickable(3, "permission", key, player))
-                .item(getItemClickable(4, "remove-key", key, player))
-                .item(getItemClickable(8, "back", key, player))
+        return MenuInventory.newBuilder(title, config.getInt("key-menu.rows"))
+                .item(getItemClickable("messages", key, player))
+                .item(getItemClickable("permission-responses", key, player))
+                .item(getItemClickable("no-permission-responses", key, player))
+                .item(getItemClickable("permission", key, player))
+                .item(getItemClickable( "remove-key", key, player))
+                .item(getItemClickable("back", key, player))
                 .build();
     }
 
-    private ItemClickable getItemClickable(int slot, String s, String key, Player player){
+    private ItemClickable getItemClickable(String s, String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String keyFile = "key-menu.items." + s;
 
         Material material = Material.valueOf(config.getString( keyFile + ".material").toUpperCase());
+        int slot = config.getInt(keyFile + ".slot");
         String name = Utils.format(config.getString(keyFile + ".name")
                 .replace("%key%", key)
                 .replace("%permission%", fileManager.get("messages").getString(key + ".permission")));
@@ -60,7 +61,7 @@ public class KeyMenu {
                         .name(name)
                         .lore(lore)
                         .build())
-                .action(inventory -> {
+                .action(event -> {
                     if (s.equalsIgnoreCase("messages")){
                         player.openInventory(seeMessageMenu.build(key, "messages", player));
                     }else if (s.equalsIgnoreCase("permission-responses")){
@@ -74,7 +75,7 @@ public class KeyMenu {
                     } else if (s.equalsIgnoreCase("back")){
                         player.openInventory(mainMenu.build(player));
                     } else return false;
-                    //event.setCancelled(true);
+                    event.setCancelled(true);
                     return true;
                 })
                 .build();

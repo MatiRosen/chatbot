@@ -1,5 +1,5 @@
 name: chatbot
-version: 3.0
+version: 4.0
 main: io.github.matirosen.chatbot.BotPlugin
 author: MatiRosen
 website: https://github.com/MatiRosen/chatbot

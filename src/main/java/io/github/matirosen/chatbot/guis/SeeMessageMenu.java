@@ -35,16 +35,16 @@ public class SeeMessageMenu {
 
     public Inventory build(String key, String path, Player player){
         FileConfiguration config = plugin.getConfig();
+        int rows = config.getInt(path + "-menu.rows");
 
-
-        return MenuInventory.newBuilder(Utils.format(config.getString(path + "-menu.title").replace("%key%", key)), 1)
-                .item(getItemClickable(0, "create", path, key, player))
-                .item(getItemClickable(1, "see", path, key, player))
-                .item(getItemClickable(8, "back", path, key, player))
+        return MenuInventory.newBuilder(Utils.format(config.getString(path + "-menu.title").replace("%key%", key)), rows)
+                .item(getItemClickable("create", path, key, player))
+                .item(getItemClickable("see", path, key, player))
+                .item(getItemClickable("back", path, key, player))
                 .build();
     }
 
-    private ItemClickable getItemClickable(int slot, String s, String path, String key, Player player){
+    private ItemClickable getItemClickable(String s, String path, String key, Player player){
         FileConfiguration config = plugin.getConfig();
         String keyFile = path + "-menu.items." + s;
 
@@ -56,12 +56,12 @@ public class SeeMessageMenu {
 
         Material material = Material.valueOf(config.getString( keyFile + ".material").toUpperCase());
         String name = Utils.format(config.getString(keyFile + ".name").replace("%permission%", permission));
-
+        int slot = config.getInt(keyFile + ".slot");
         List<String> lore = Arrays.asList(Utils.format(config.getStringList(keyFile + ".lore")));
 
         return ItemClickable.builder(slot)
                 .item(ItemBuilder.builder(material).name(name).lore(lore).build())
-                .action(inventory -> {
+                .action(event -> {
                     if (s.equalsIgnoreCase("create")){
                         ConversationFactory cf = new ConversationFactory(plugin);
                         Conversation conversation = cf
@@ -79,7 +79,7 @@ public class SeeMessageMenu {
                         player.openInventory(keyMenu.build(key, player));
                     }
 
-                    //event.setCancelled(true);
+                    event.setCancelled(true);
                     return true;
                 }).build();
     }
