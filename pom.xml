@@ -32,8 +32,8 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
-                            <pattern>team.unnamed</pattern>
-                            <shadedPattern>io.github.matirosen.chatbot</shadedPattern>
+                            <pattern>team.unnamed.gui.menu</pattern>
+                            <shadedPattern>io.github.matirosen.chatbot.gui</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>me.yushust.inject</pattern>
@@ -65,10 +65,6 @@
         <repository>
             <id>unnamed-releases</id>
             <url>https://repo.unnamed.team/repository/unnamed-releases/</url>
-        </repository>
-        <repository>
-            <id>unnamed-snapshots</id>
-            <url>https://repo.unnamed.team/repository/unnamed-snapshots/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
@@ -105,6 +101,11 @@
         </dependency>
         <dependency>
             <groupId>team.unnamed</groupId>
+            <artifactId>gui-menu-adapt-v1_12_R1</artifactId>
+            <version>3.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>team.unnamed</groupId>
             <artifactId>gui-menu-adapt-v1_16_R3</artifactId>
             <version>3.4.0-SNAPSHOT</version>
         </dependency>
@@ -121,6 +122,11 @@
         <dependency>
             <groupId>team.unnamed</groupId>
             <artifactId>gui-menu-adapt-v1_19_R1</artifactId>
+            <version>3.4.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>team.unnamed</groupId>
+            <artifactId>gui-menu-adapt-v1_19_R2</artifactId>
             <version>3.4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
