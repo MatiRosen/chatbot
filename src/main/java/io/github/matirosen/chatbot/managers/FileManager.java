@@ -34,16 +34,41 @@ public class FileManager {
         FileConfiguration langFileConfiguration = loadFileConfiguration(lang);
 
         if (langFileConfiguration == null) {
-            Bukkit.getConsoleSender().sendMessage(Utils.format("&c[ChatBot] Language file not found. Using 'language-en.yml'"));
+            Bukkit.getConsoleSender().sendMessage(Utils.format(get("config"), "&c[ChatBot] Language file not found. Using 'language-en.yml'"));
             langFileConfiguration = loadFileConfiguration(String.format(LANG_FORMAT, "en"));
 
             if (langFileConfiguration == null) {
-                Bukkit.getConsoleSender().sendMessage(Utils.format("&c[ChatBot] language-en.yml file not found. Disabling..."));
+                Bukkit.getConsoleSender().sendMessage(Utils.format(get("config"), "&c[ChatBot] language-en.yml file not found. Disabling..."));
                 Bukkit.getPluginManager().disablePlugin(plugin);
                 return;
             }
         }
         configurationMap.put("language", langFileConfiguration);
+        this.fileUpdater();
+    }
+
+    private void fileUpdater(){
+        FileConfiguration config = get("config");
+        boolean changed = false;
+
+        if (!config.contains("hex-formatting.start-tag")){
+            config.set("hex-formatting.start-tag", "&#");
+            changed = true;
+        }
+        if (!config.contains("hex-formatting.end-tag")){
+            config.set("hex-formatting.end-tag", "");
+            changed = true;
+        }
+
+        if (!config.contains("update-checker")){
+            config.set("update-checker", true);
+            changed = true;
+        }
+
+        if (changed){
+            saveFile(config, "config.yml");
+            configurationMap.put("config", loadFileConfiguration("config.yml"));
+        }
     }
 
     public void saveFile(FileConfiguration fileConfiguration, String path){

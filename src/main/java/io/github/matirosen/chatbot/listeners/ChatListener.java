@@ -1,6 +1,5 @@
 package io.github.matirosen.chatbot.listeners;
 
-import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.managers.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -15,14 +14,11 @@ import java.text.Normalizer;
 public class ChatListener implements Listener {
 
     @Inject
-    private FileManager fileManager;
-    @Inject
     private MessageManager messageManager;
     @Inject
     private JavaPlugin plugin;
 
-    @Inject
-    public ChatListener(JavaPlugin plugin){
+    public void start(){
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

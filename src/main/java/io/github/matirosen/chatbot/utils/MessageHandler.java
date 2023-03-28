@@ -2,20 +2,22 @@ package io.github.matirosen.chatbot.utils;
 
 import io.github.matirosen.chatbot.managers.FileManager;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class MessageHandler {
 
-    private final FileManager fileManager;
+    @Inject
+    private FileManager fileManager;
+    @Inject
+    private JavaPlugin plugin;
 
-    public MessageHandler(FileManager fileManager){
-        this.fileManager = fileManager;
-    }
-
-    public void send(Player player, String id){
+    public void send(CommandSender player, String id){
         ConfigurationSection messageSection = fileManager.get("language");
 
         String message = messageSection.getString(id);
@@ -25,7 +27,7 @@ public class MessageHandler {
                 .replace("%player_name%", player.getName())));
     }
 
-    public void sendList(Player player, String id){
+    public void sendList(CommandSender player, String id){
         ConfigurationSection messageSection = fileManager.get("language");
 
         List<String> messageList = messageSection.getStringList(id);
@@ -34,7 +36,8 @@ public class MessageHandler {
 
         for (String message : messageList){
             player.sendMessage(format(message.replace("%prefix%", fileManager.get("config").getString("prefix"))
-                    .replace("%player_name%", player.getName())));
+                    .replace("%player_name%", player.getName())
+                    .replace("%author%", plugin.getDescription().getAuthors().get(0))));
         }
     }
 

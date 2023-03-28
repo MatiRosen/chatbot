@@ -1,7 +1,7 @@
 package io.github.matirosen.chatbot.managers;
 
 import io.github.matirosen.chatbot.BotMessage;
-import io.github.matirosen.chatbot.BotPlugin;
+import io.github.matirosen.chatbot.utils.MessageHandler;
 import io.github.matirosen.chatbot.utils.Utils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
@@ -20,6 +20,8 @@ public class MessageManager {
     private FileManager fileManager;
     @Inject
     private JavaPlugin plugin;
+    @Inject
+    private MessageHandler messageHandler;
     private final Map<Player, Long> coolDownMap = new HashMap<>();
 
     public Set<String> getKeys(){
@@ -58,7 +60,7 @@ public class MessageManager {
             int coolDown = plugin.getConfig().getInt("player-cooldown");
 
             if (secondsPassed < coolDown){
-                player.sendMessage(BotPlugin.getMessageHandler().getMessage("player-in-cooldown")
+                player.sendMessage(messageHandler.getMessage("player-in-cooldown")
                         .replace("%time%", String.valueOf(coolDown - secondsPassed)));
                 return;
             }
@@ -98,11 +100,11 @@ public class MessageManager {
             public void run(){
                 if (fileManager.get("config").getBoolean("see-message")){
                     for (Player onlinePlayer : Bukkit.getOnlinePlayers()){
-                        onlinePlayer.sendMessage(Utils.format(finalRandomResponse.replace("%prefix%", config.getString("prefix"))
+                        onlinePlayer.sendMessage(Utils.format(config, finalRandomResponse.replace("%prefix%", config.getString("prefix"))
                                 .replace("%player%", player.getDisplayName()).replace("%player_name%", player.getDisplayName())));
                     }
                 } else{
-                    player.sendMessage(Utils.format(finalRandomResponse.replace("%prefix%", config.getString("prefix"))
+                    player.sendMessage(Utils.format(config, finalRandomResponse.replace("%prefix%", config.getString("prefix"))
                             .replace("%player%", player.getDisplayName()).replace("%player_name%", player.getDisplayName())));
                 }
                 if (!player.hasPermission("chatbot.bypass.cooldown")){

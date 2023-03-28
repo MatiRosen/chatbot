@@ -3,6 +3,7 @@ package io.github.matirosen.chatbot.guis;
 import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.conversations.CreateKeyPrompt;
 import io.github.matirosen.chatbot.managers.MessageManager;
+import io.github.matirosen.chatbot.utils.MessageHandler;
 import io.github.matirosen.chatbot.utils.Utils;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -30,10 +31,12 @@ public class MainMenu {
     private MessageManager messageManager;
     @Inject
     private KeyMenu keyMenu;
+    @Inject
+    private MessageHandler messageHandler;
 
     public Inventory build(Player player){
         FileConfiguration config = plugin.getConfig();
-        String title = Utils.format(config.getString("main-menu.title"));
+        String title = Utils.format(config, config.getString("main-menu.title"));
         int rows = config.getInt("main-menu.rows");
 
         StringLayoutMenuInventoryBuilder menu = MenuInventory.newPaginatedBuilder(ItemStack.class, title, rows)
@@ -53,17 +56,17 @@ public class MainMenu {
     private List<ItemStack> getEntities(){
         FileConfiguration config = plugin.getConfig();
         List<ItemStack> entities = new ArrayList<>();
-        String[] lore = Utils.format(config.getStringList("main-menu.items.keys.lore"));
+        String[] lore = Utils.format(config, config.getStringList("main-menu.items.keys.lore"));
         String name = config.getString("main-menu.items.keys.name");
         Material material = Material.valueOf(config.getString("main-menu.items.keys.material").toUpperCase());
 
         for (String key : messageManager.getKeys()){
             List<String> messageLore = new ArrayList<>();
-            messageLore.add(Utils.format("&7" + key));
+            messageLore.add(Utils.format(config, "&7" + key));
             messageLore.addAll(Arrays.asList(lore));
 
             entities.add(ItemBuilder.builder(material)
-                    .name(Utils.format(name.replace("%key%", key)))
+                    .name(Utils.format(config, name.replace("%key%", key)))
                     .lore(messageLore)
                     .build());
         }
@@ -104,9 +107,9 @@ public class MainMenu {
             if (lines.stream().noneMatch(line -> line.contains(s))) continue;
             String[] materialName = configurationSection.getString(s + ".material").toUpperCase().split(":");
             String name = configurationSection.getString(s + ".name");
-            String[] lore = Utils.format(configurationSection.getStringList(s + ".lore"));
+            String[] lore = Utils.format(config, configurationSection.getStringList(s + ".lore"));
 
-            ItemClickable item = ItemClickable.onlyItem(createItemBuilder(materialName).name(Utils.format(name)).lore(lore).build());
+            ItemClickable item = ItemClickable.onlyItem(createItemBuilder(materialName).name(Utils.format(config, name)).lore(lore).build());
             map.put(s.charAt(0), item);
         }
         return map;
@@ -115,8 +118,8 @@ public class MainMenu {
     private ItemClickable getCreateItem(Player player){
         FileConfiguration config = plugin.getConfig();
         Material material = Material.valueOf(config.getString("main-menu.items.create.material").toUpperCase());
-        String name = Utils.format(config.getString("main-menu.items.create.name"));
-        String[] lore = Utils.format(config.getStringList("main-menu.items.create.lore"));
+        String name = Utils.format(config, config.getString("main-menu.items.create.name"));
+        String[] lore = Utils.format(config, config.getStringList("main-menu.items.create.lore"));
 
         return ItemClickable.builder()
                 .item(ItemBuilder.builder(material)
@@ -127,12 +130,12 @@ public class MainMenu {
                     player.closeInventory();
                     event.setCancelled(true);
                     if (!player.hasPermission("chatbot.add")){
-                        BotPlugin.getMessageHandler().send(player, "no-permission");
+                        messageHandler.send(player, "no-permission");
                         return false;
                     }
                     ConversationFactory cf = new ConversationFactory(plugin);
                     Conversation conversation = cf
-                            .withFirstPrompt(new CreateKeyPrompt(plugin, messageManager, this, keyMenu))
+                            .withFirstPrompt(new CreateKeyPrompt(plugin, messageManager, this, keyMenu, messageHandler))
                             .withLocalEcho(false)
                             .withTimeout(plugin.getConfig().getInt("time-out"))
                             .buildConversation(player);
@@ -146,8 +149,8 @@ public class MainMenu {
         FileConfiguration config = plugin.getConfig();
         String key = "main-menu.items." + next + "-page";
         String[] materialName = config.getString(key + ".material").toUpperCase().split(":");
-        String name = Utils.format(config.getString(key + ".name"));
-        String[] lore = Utils.format(config.getStringList(key + ".lore"));
+        String name = Utils.format(config, config.getString(key + ".name"));
+        String[] lore = Utils.format(config, config.getStringList(key + ".lore"));
 
         page = next.equalsIgnoreCase("next") ? page + 1 : page - 1;
 

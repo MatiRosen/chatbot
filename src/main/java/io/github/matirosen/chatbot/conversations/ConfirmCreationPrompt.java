@@ -1,7 +1,6 @@
 package io.github.matirosen.chatbot.conversations;
 
 import io.github.matirosen.chatbot.BotMessage;
-import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.guis.KeyMenu;
 import io.github.matirosen.chatbot.guis.MainMenu;
 import io.github.matirosen.chatbot.guis.SeeMessageMenu;
@@ -28,18 +27,20 @@ public class ConfirmCreationPrompt extends StringPrompt {
     private final String key, creation;
     private String msg;
     private SeeMessageMenu seeMessageMenu;
+    private final MessageHandler messageHandler;
 
 
-    public ConfirmCreationPrompt(JavaPlugin plugin, MessageManager messageManager, MainMenu mainMenu, KeyMenu keyMenu, String key, String creation){
+    public ConfirmCreationPrompt(JavaPlugin plugin, MessageManager messageManager, MainMenu mainMenu, KeyMenu keyMenu, String key, String creation, MessageHandler messageHandler){
         this.plugin = plugin;
         this.messageManager = messageManager;
         this.mainMenu = mainMenu;
         this.keyMenu = keyMenu;
         this.key = key;
         this.creation = creation;
+        this.messageHandler = messageHandler;
     }
 
-    public ConfirmCreationPrompt(JavaPlugin plugin, FileManager fileManager, SeeMessageMenu seeMessageMenu, MessageManager messageManager, String key, String msg, String creation){
+    public ConfirmCreationPrompt(JavaPlugin plugin, FileManager fileManager, SeeMessageMenu seeMessageMenu, MessageManager messageManager, String key, String msg, String creation, MessageHandler messageHandler){
         this.plugin = plugin;
         this.fileManager = fileManager;
         this.messageManager = messageManager;
@@ -47,16 +48,16 @@ public class ConfirmCreationPrompt extends StringPrompt {
         this.msg = msg;
         this.seeMessageMenu = seeMessageMenu;
         this.key = key;
+        this.messageHandler = messageHandler;
     }
 
     @Override
     public String getPromptText(ConversationContext conversationContext){
-        MessageHandler messageHandler = BotPlugin.getMessageHandler();
         FileConfiguration config = plugin.getConfig();
         String message = messageHandler.getMessage("finish-writing-" + creation).replace("%key%", key);
 
         if (!creation.equalsIgnoreCase("key")){
-            message = message + Utils.format("\n&b"+ msg);
+            message = message + Utils.format(config, "\n&b"+ msg);
         }
 
         return message.replace("%yes%", config.getString("yes-word")).replace("%no%", config.getString("no-word"));
@@ -89,18 +90,18 @@ public class ConfirmCreationPrompt extends StringPrompt {
                 player.openInventory(seeMessageMenu.build(key, creation, player));
             }
 
-            BotPlugin.getMessageHandler().send(player, creation + "-created");
+            messageHandler.send(player, creation + "-created");
 
             return Prompt.END_OF_CONVERSATION;
         }
 
         else if (s.equalsIgnoreCase("n") || s.equalsIgnoreCase(config.getString("no-word"))){
-            if (creation.equalsIgnoreCase("key")) return new CreateKeyPrompt(plugin, messageManager, mainMenu, keyMenu);
+            if (creation.equalsIgnoreCase("key")) return new CreateKeyPrompt(plugin, messageManager, mainMenu, keyMenu, messageHandler);
 
-            return new MessagePrompt(plugin, fileManager, messageManager, seeMessageMenu, key, creation);
+            return new MessagePrompt(plugin, fileManager, messageManager, seeMessageMenu, key, creation, messageHandler);
         }
 
-        context.getForWhom().sendRawMessage(BotPlugin.getMessageHandler().getMessage("write-y-n")
+        context.getForWhom().sendRawMessage(messageHandler.getMessage("write-y-n")
                 .replace("%yes%", config.getString("yes-word"))
                 .replace("%no%", config.getString("no-word")));
         return this;

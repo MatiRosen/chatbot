@@ -1,6 +1,5 @@
 package io.github.matirosen.chatbot.conversations;
 
-import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.utils.MessageHandler;
@@ -22,26 +21,27 @@ public class RemovePrompt extends StringPrompt {
     private final ComponentRenderer componentRenderer;
     private final String key, s;
     private final int i;
+    private final MessageHandler messageHandler;
 
-    public RemovePrompt(JavaPlugin plugin, FileManager fileManager, ComponentRenderer componentRenderer, String key, String s, int i){
+    public RemovePrompt(JavaPlugin plugin, FileManager fileManager, ComponentRenderer componentRenderer, String key, String s, int i, MessageHandler messageHandler){
         this.plugin = plugin;
         this.fileManager = fileManager;
         this.componentRenderer = componentRenderer;
         this.key = key;
         this.s = s;
         this.i = i;
+        this.messageHandler = messageHandler;
     }
 
     @Override
     public String getPromptText(ConversationContext conversationContext){
-        MessageHandler messageHandler = BotPlugin.getMessageHandler();
         FileConfiguration config = plugin.getConfig();
         String message = messageHandler.getMessage("remove-" + s);
 
         if (s.equalsIgnoreCase("permission")){
-            message = message + Utils.format("\n&b"+ fileManager.get("messages").getString(key + ".permission"));
+            message = message + Utils.format(config, "\n&b"+ fileManager.get("messages").getString(key + ".permission"));
         } else{
-            message = message + Utils.format("\n&b"+ fileManager.get("messages").getStringList(key + "."+ s).get(i-1));
+            message = message + Utils.format(config, "\n&b"+ fileManager.get("messages").getStringList(key + "."+ s).get(i-1));
         }
 
         return message.replace("%yes%", config.getString("yes-word")).replace("%no%", config.getString("no-word"));
@@ -65,17 +65,17 @@ public class RemovePrompt extends StringPrompt {
 
             fileManager.saveFile(messagesFile, "messages.yml");
             componentRenderer.sendComponents(player, key, s, 1);
-            player.sendRawMessage(BotPlugin.getMessageHandler().getMessage(s + "-removed"));
+            player.sendRawMessage(messageHandler.getMessage(s + "-removed"));
             return Prompt.END_OF_CONVERSATION;
         }
 
         else if (t.equalsIgnoreCase("n") || t.equalsIgnoreCase(config.getString("no-word"))){
             componentRenderer.sendComponents(player, key, s, 1);
-            player.sendRawMessage(BotPlugin.getMessageHandler().getMessage(s + "-remove-cancelled"));
+            player.sendRawMessage(messageHandler.getMessage(s + "-remove-cancelled"));
             return Prompt.END_OF_CONVERSATION;
         }
 
-        context.getForWhom().sendRawMessage(BotPlugin.getMessageHandler().getMessage("write-y-n")
+        context.getForWhom().sendRawMessage(messageHandler.getMessage("write-y-n")
                 .replace("%yes%", config.getString("yes-word"))
                 .replace("%no%", config.getString("no-word")));
         return this;

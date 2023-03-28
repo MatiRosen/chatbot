@@ -6,7 +6,7 @@
 
     <groupId>io.github.matirosen</groupId>
     <artifactId>chatbot</artifactId>
-    <version>4.0</version>
+    <version>5.0.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -32,16 +32,24 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
-                            <pattern>team.unnamed.gui.menu</pattern>
+                            <pattern>io.github.matirosen.gui</pattern>
                             <shadedPattern>io.github.matirosen.chatbot.gui</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>me.yushust.inject</pattern>
+                            <pattern>team.unnamed.inject</pattern>
                             <shadedPattern>io.github.matirosen.chatbot.inject</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>javax.inject</pattern>
                             <shadedPattern>io.github.matirosen.chatbot.javax.inject</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>io.github.matirosen.chatbot.bstats</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.jeff_media.updatechecker</pattern>
+                            <shadedPattern>io.github.matirosen.chatbot.updatechecker</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -63,12 +71,12 @@
             <url>https://repo.unnamed.team/repository/unnamed-public/</url>
         </repository>
         <repository>
-            <id>unnamed-releases</id>
-            <url>https://repo.unnamed.team/repository/unnamed-releases/</url>
-        </repository>
-        <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>jeff-media-public</id>
+            <url>https://hub.jeff-media.com/nexus/repository/jeff-media-public/</url>
         </repository>
     </repositories>
 
@@ -80,60 +88,37 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.yushust.inject</groupId>
-            <artifactId>trew</artifactId>
-            <version>0.3.0-beta</version>
+            <groupId>team.unnamed</groupId>
+            <artifactId>inject</artifactId>
+            <version>1.0.2</version>
         </dependency>
         <dependency>
-            <groupId>team.unnamed</groupId>
+            <groupId>io.github.matirosen</groupId>
             <artifactId>gui-menu-api</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
+            <version>4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>team.unnamed</groupId>
+            <groupId>io.github.matirosen</groupId>
             <artifactId>gui-item-api</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_8_R3</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_12_R1</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_16_R3</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_17_R1</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_18_R2</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_19_R1</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.unnamed</groupId>
-            <artifactId>gui-menu-adapt-v1_19_R2</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
+            <version>4.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.10.9</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jeff_media</groupId>
+            <artifactId>SpigotUpdateChecker</artifactId>
+            <version>3.0.2</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

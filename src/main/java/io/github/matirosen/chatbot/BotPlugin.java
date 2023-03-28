@@ -1,18 +1,21 @@
 package io.github.matirosen.chatbot;
 
+import com.jeff_media.updatechecker.UpdateCheckSource;
+import com.jeff_media.updatechecker.UpdateChecker;
+import com.jeff_media.updatechecker.UserAgentBuilder;
 import io.github.matirosen.chatbot.commands.MainCommand;
 import io.github.matirosen.chatbot.listeners.ChatListener;
 import io.github.matirosen.chatbot.listeners.CommandListener;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.modules.CoreModule;
-import io.github.matirosen.chatbot.utils.MessageHandler;
-import me.yushust.inject.Injector;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import team.unnamed.gui.menu.listener.InventoryClickListener;
 import team.unnamed.gui.menu.listener.InventoryCloseListener;
 import team.unnamed.gui.menu.listener.InventoryOpenListener;
+import team.unnamed.inject.Injector;
 
 import javax.inject.Inject;
 
@@ -28,8 +31,6 @@ public class BotPlugin extends JavaPlugin {
     @Inject
     private CommandListener commandListener;
 
-    private static MessageHandler messageHandler;
-
     public void onEnable(){
         try {
             Injector injector = Injector.create(new CoreModule(this));
@@ -38,17 +39,38 @@ public class BotPlugin extends JavaPlugin {
             e.printStackTrace();
         }
 
+        start();
+    }
+
+    private void start(){
         fileManager.loadAllFileConfigurations();
         mainCommand.start();
-        messageHandler = new MessageHandler(fileManager);
+        chatListener.start();
+        commandListener.start();
+
         PluginManager pluginManager = Bukkit.getPluginManager();
+
         pluginManager.registerEvents(new InventoryClickListener(), this);
         pluginManager.registerEvents(new InventoryOpenListener(), this);
         pluginManager.registerEvents(new InventoryCloseListener(this), this);
 
+        int pluginId = 18072;
+        new Metrics(this, pluginId);
+        checkUpdates();
     }
 
-    public static MessageHandler getMessageHandler(){
-        return messageHandler;
+    private void checkUpdates(){
+        if (!fileManager.get("config").getBoolean("update-checker")) return;
+        final String id = "93347";
+        new UpdateChecker(this, UpdateCheckSource.SPIGOT, id)
+                .setDownloadLink(id)
+                .setDonationLink("https://paypal.me/RosenM00?country.x=AR&locale.x=es_XC")
+                .setChangelogLink(id)
+                .setNotifyOpsOnJoin(true)
+                .setNotifyByPermissionOnJoin("chatbot.updatechecker")
+                .setUserAgent(new UserAgentBuilder().addPluginNameAndVersion())
+                .checkEveryXHours(24)
+                .checkNow();
     }
+
 }

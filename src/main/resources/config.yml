@@ -1,5 +1,12 @@
 prefix: '&a&l[&6&lChatBot&a&l]'
 
+# Automatically checks for a new version available
+update-checker: true
+
+hex-formatting:
+  start-tag: '&#'
+  end-tag: ''
+
 # Set language of plugin. If you create a new YML, it should be called "language-(your language).yml". For example, "language-ru.yml". Then write "ru" here.
 language: en
 

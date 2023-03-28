@@ -1,9 +1,9 @@
 package io.github.matirosen.chatbot.listeners;
 
-import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.chatComponents.ComponentRenderer;
 import io.github.matirosen.chatbot.conversations.RemovePrompt;
 import io.github.matirosen.chatbot.managers.FileManager;
+import io.github.matirosen.chatbot.utils.MessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
@@ -23,9 +23,10 @@ public class CommandListener implements Listener {
     private FileManager fileManager;
     @Inject
     private JavaPlugin plugin;
-
     @Inject
-    public CommandListener(JavaPlugin plugin){
+    private MessageHandler messageHandler;
+
+    public void start(){
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
@@ -46,12 +47,12 @@ public class CommandListener implements Listener {
             componentRenderer.sendComponents(player, key, s, i);
         } else if (args[1].equalsIgnoreCase("remove")){
             if (!player.hasPermission("chatbot.remove")){
-                BotPlugin.getMessageHandler().send(player, "no-permission");
+                messageHandler.send(player, "no-permission");
                 return;
             }
             ConversationFactory cf = new ConversationFactory(plugin);
             Conversation conversation = cf
-                    .withFirstPrompt(new RemovePrompt(plugin, fileManager, componentRenderer, key, s, i))
+                    .withFirstPrompt(new RemovePrompt(plugin, fileManager, componentRenderer, key, s, i, messageHandler))
                     .withLocalEcho(false)
                     .withTimeout(plugin.getConfig().getInt("time-out"))
                     .buildConversation(player);

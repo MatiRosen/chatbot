@@ -19,6 +19,8 @@ public class ComponentRenderer {
 
     @Inject
     private FileManager fileManager;
+    @Inject
+    private MessageHandler messageHandler;
 
     public void sendComponents(Player player, String key, String s, int page){
         List<String> list = fileManager.get("messages").getStringList(key + "." + s);
@@ -35,7 +37,6 @@ public class ComponentRenderer {
     }
 
     private List<BaseComponent[]> getComponents(List<String> list, String key, String s, int page){
-        MessageHandler messageHandler = BotPlugin.getMessageHandler();
         ComponentBuilder componentBuilder = new ComponentBuilder(messageHandler.getMessage("see-separator") + "\n");
         String title = messageHandler.getMessage("see-" + s + "-title")
                 .replace("%page%", String.valueOf(page))
@@ -46,7 +47,9 @@ public class ComponentRenderer {
 
         for (int i = 1; i < (list.size() + 1); i++){
             componentBuilder.append(list.get(i - 1) + "\n\n")
-                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Utils.format(messageHandler.getMessage("remove-hover"))).create()))
+                    .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                            new ComponentBuilder(Utils
+                                    .format(fileManager.get("config"), messageHandler.getMessage("remove-hover"))).create()))
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/chatbot remove " + key + " " + s + " " + i));
 
             if (i % 5 == 0 && i != list.size()){
@@ -70,8 +73,6 @@ public class ComponentRenderer {
     }
 
     private ComponentBuilder getArrow(String next, String key, String s, int page, ComponentBuilder componentBuilder, boolean hasPrevious){
-        MessageHandler messageHandler = BotPlugin.getMessageHandler();
-
         String arrow = messageHandler.getMessage(next + "-arrow");
         String hover = messageHandler.getMessage("hover-" + next + "-arrow");
         int actualPage = next.equalsIgnoreCase("next") ? page + 1 : page - 1;
@@ -89,8 +90,6 @@ public class ComponentRenderer {
     }
 
     private BaseComponent[] getMiddleArrows(String key, String s, int page, ComponentBuilder componentBuilder){
-        MessageHandler messageHandler = BotPlugin.getMessageHandler();
-
         getArrow("previous", key, s, page, componentBuilder, true);
         componentBuilder = getArrow("next", key, s, page, componentBuilder, true).append("\n" + messageHandler.getMessage("see-separator")).reset();
 

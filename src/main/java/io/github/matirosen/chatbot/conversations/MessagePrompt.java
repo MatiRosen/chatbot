@@ -21,19 +21,20 @@ public class MessagePrompt extends StringPrompt {
     private final SeeMessageMenu seeMessageMenu;
     private final FileManager fileManager;
     private final String key, path;
+    private final MessageHandler messageHandler;
 
-    public MessagePrompt(JavaPlugin plugin, FileManager fileManager, MessageManager messageManager, SeeMessageMenu seeMessageMenu, String key, String path){
+    public MessagePrompt(JavaPlugin plugin, FileManager fileManager, MessageManager messageManager, SeeMessageMenu seeMessageMenu, String key, String path, MessageHandler messageHandler){
         this.plugin = plugin;
         this.fileManager = fileManager;
         this.messageManager = messageManager;
         this.seeMessageMenu = seeMessageMenu;
         this.key = key;
         this.path = path;
+        this.messageHandler = messageHandler;
     }
 
     @Override
     public String getPromptText(ConversationContext conversationContext){
-        MessageHandler messageHandler = BotPlugin.getMessageHandler();
         FileConfiguration config = plugin.getConfig();
         String message = messageHandler.getMessage("cancel-any-time").replace("%cancel%", config.getString("cancel-word")) + "\n";
 
@@ -53,10 +54,10 @@ public class MessagePrompt extends StringPrompt {
 
         if (s.equalsIgnoreCase(config.getString("cancel-word"))){
             Player player = (Player) context.getForWhom();
-            player.sendRawMessage(BotPlugin.getMessageHandler().getMessage(path + "-cancelled"));
+            player.sendRawMessage(messageHandler.getMessage(path + "-cancelled"));
             return Prompt.END_OF_CONVERSATION;
         }
 
-        return new ConfirmCreationPrompt(plugin, fileManager, seeMessageMenu, messageManager, key, s, path);
+        return new ConfirmCreationPrompt(plugin, fileManager, seeMessageMenu, messageManager, key, s, path, messageHandler);
     }
 }

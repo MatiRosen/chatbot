@@ -1,5 +1,5 @@
 name: chatbot
-version: 4.0
+version: 5.0.0
 main: io.github.matirosen.chatbot.BotPlugin
 author: MatiRosen
 website: https://github.com/MatiRosen/chatbot
@@ -20,3 +20,5 @@ permissions:
     description: Permission to reload plugin
   chatbot.bypass.cooldown:
     description: Permission to bypass cooldown
+  chatbot.updatechecker:
+    description: Sends a notification when the plugin has an update

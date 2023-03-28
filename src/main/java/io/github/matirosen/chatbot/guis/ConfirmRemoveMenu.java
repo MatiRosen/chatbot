@@ -29,7 +29,7 @@ public class ConfirmRemoveMenu {
 
     public Inventory build(String key, Player player){
         FileConfiguration config = plugin.getConfig();
-        String title = Utils.format(Objects.requireNonNull(config.getString("remove-menu.title")).replace("%key%", key));
+        String title = Utils.format(config, Objects.requireNonNull(config.getString("remove-menu.title")).replace("%key%", key));
         return MenuInventory.newBuilder(title, config.getInt("remove-menu.rows"))
                 .item(getItemClickable("confirm", key, player))
                 .item(getItemClickable("cancel", key, player))
@@ -42,11 +42,11 @@ public class ConfirmRemoveMenu {
 
         Material material = Material.valueOf(config.getString(keyFile + ".material").toUpperCase());
         int slot = config.getInt(keyFile + ".slot");
-        String name = Utils.format(config.getString(keyFile + ".name").replace("%key%", key));
+        String name = Utils.format(config, config.getString(keyFile + ".name").replace("%key%", key));
         List<String> lore = new ArrayList<>();
 
         for (String t : config.getStringList(keyFile + ".lore")){
-            lore.add(Utils.format(t.replace("%key%", key)));
+            lore.add(Utils.format(config, t.replace("%key%", key)));
         }
 
         return ItemClickable.builder(slot)
