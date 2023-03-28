@@ -4,7 +4,6 @@ import io.github.matirosen.chatbot.managers.FileManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.inject.Inject;
@@ -51,6 +50,6 @@ public class MessageHandler {
     }
 
     private String format(String s){
-        return ChatColor.translateAlternateColorCodes('&',s);
+        return Utils.format(fileManager.get("config"), s);
     }
 }

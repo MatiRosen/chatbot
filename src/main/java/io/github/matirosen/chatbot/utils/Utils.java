@@ -10,11 +10,10 @@ import java.util.regex.Pattern;
 import static org.bukkit.ChatColor.COLOR_CHAR;
 
 public class Utils {
-
     public static String format(FileConfiguration configFile, String message) {
+        message = message.replace("%prefix%", configFile.getString("prefix"));
         if (message.isEmpty()) return "";
 
-        message = message.replace("%prefix%", configFile.getString("prefix"));
         String startTag = configFile.getString("hex-formatting.start-tag");
         String endTag = configFile.getString("hex-formatting.end-tag");
 

@@ -1,7 +1,6 @@
 package io.github.matirosen.chatbot.chatComponents;
 
 import com.google.common.base.Strings;
-import io.github.matirosen.chatbot.BotPlugin;
 import io.github.matirosen.chatbot.managers.FileManager;
 import io.github.matirosen.chatbot.utils.MessageHandler;
 import io.github.matirosen.chatbot.utils.Utils;
